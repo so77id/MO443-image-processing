@@ -1,0 +1,1032 @@
+
+\documentclass[journal]{IEEEtran}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{red},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=3pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=1
+}
+
+\lstset{style=mystyle}
+
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Report 0}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Miguel~Rodr\'iguez,~RA:~192744,~Email:~m.rodriguezs1990@gmail.com}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{introduction to digital image processing, MO443, Teacher: H\'elio Pedrini, Computer Institute UNICAMP}%
+{}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+\section{Problem}
+\label{sec:sec_1}
+The objective of this work is to perform some basic digital image processing
+
+\subsection{Mosaic}
+\label{sub_sec:mosaic}
+Build a mosaic of $4\times 4$  blocks from a monochromatic image. The distribution of the blocks should be the numeration present in Fig.~\ref{fig:mosaic_example}.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.20\textwidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/mosaic_original} 
+		\caption{Image before processing}
+		\label{fig:subim1}
+	\end{subfigure}
+	\begin{subfigure}{0.20\textwidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/mosaic_final}
+		\caption{Image after processing}
+		\label{fig:subim2}
+	\end{subfigure}
+	\caption{Mosaic distribution}
+	\label{fig:mosaic_example}
+\end{figure}
+
+\subsection{Intensity transformation}
+\label{sub_sec:transformation}
+Perform two intensity transformation of a monochromatic image:
+\begin{enumerate}
+	\item Get negative of a image as in Fig.~\ref{fig:negative_image_example}.
+	\item Convert intensity interval to~[100, 200].
+\end{enumerate}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.35\linewidth]{images/negative}
+	\caption{Negative Image}
+	\label{fig:negative_image_example}
+\end{figure}
+
+
+\subsection{Combination of images}
+\label{sub_sec:combination}
+Combine two monochrome images of the same size by weighted average of their gray levels, as shown in Fig.~\ref{fig:combine_example}.
+
+\begin{figure}
+	
+	\centering
+	\begin{subfigure}{0.16\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{images/baboon} 
+		\caption{Image A}
+		\label{fig:combine_example1}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.16\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{images/butterfly}
+		\caption{Image B}
+		\label{fig:combine_example2}
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{images/combine1} 
+		\caption{0.2*A+0.8*B}
+		\label{fig:combine_example_final1}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{images/combine2}
+		\caption{0.5*A+0.5*B}
+		\label{fig:combine_example_final2}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{images/combine3}
+		\caption{0.8*A+0.2*B}
+		\label{fig:combine_example_final3}
+	\end{subfigure}
+
+	\caption{Images before and after combination}
+	\label{fig:combine_example}
+\end{figure}
+
+
+\section{Solution}
+
+In this section we will describe the different solutions that were given to the problems raised in section~\ref{sec:sec_1}.
+
+\subsection{Solution to the mosaic problem}
+\label{sub_sec:solution:mosaic}
+
+In order to solve the mosaic problem it's necessary decompose it into two different sub-problems: split image $I$ into $N\times N$ blocks and create new a image from a random order of blocks. 
+
+It was decided to generalize the problem, the value $N$ of blocks will be entered into the system by user, also the blocks will be ordered randomly in final image, which will generate a different final image in each instance of the program.
+
+\subsubsection{Split image into $N\times N$  blocks}
+To divide an image $I$ with width $w$ and height $h$ into $N \times N$ blocks it's necessary that $w~mod(N) = 0$ and $h~mod(N) = 0$, if this is not true, image $I$ must be preprocessed. 
+
+The preprocessing consists of obtaining a new image of size $ w' \times h' $, where $ w' ~leq~w~\wedge w'~mod(N)=0 $ and $h'~\leq~h~\wedge~h'~mod(N)=0$. The $ preprocessing(image, n\_tiles) $ function described in Listing~\ref{list:preprocessing} was created, which allows this treatment to be performed on the input image.
+
+\begin{lstlisting}[language=Python, caption=Image preprocessing, label=list:preprocessing]
+def preprocessing(img, n_tiles):
+	height, width = img.shape
+	
+	new_width = (width // n_tiles) * n_tiles
+	new_height = (height // n_tiles) * n_tiles
+	
+	new_img = img[0:new_height, 0:new_width]
+	
+	return new_img
+\end{lstlisting}
+
+After performing the preprocessing of image, we proceed to divide image into $N~\times~N$ frames. This division of $I$ was made using the notation of slices provided by python, which has as input the initial and final range for each dimension of the matrix, these ranges are described in the equations~(\ref{eq:row_initial_range}), (\ref{eq:row_end_range}), (\ref{eq:col_initial_range}) y (\ref{eq:col_end_range}).
+
+\begin{equation}\label{eq:row_initial_range}
+	row\_initial\_range = floor\left(\dfrac{i * h}{N}\right)
+\end{equation}
+\begin{equation}\label{eq:row_end_range}
+	row\_end\_range = floor\left(\dfrac{i * h}{N}\right) - 1
+\end{equation}
+\begin{equation}\label{eq:col_initial_range}
+	col\_initial\_range =floor\left(\dfrac{i * w}{N}\right)
+\end{equation}
+\begin{equation}\label{eq:col_end_range}
+	col\_end\_range = floor\left(\dfrac{i * w}{N}\right) - 1
+\end{equation}
+
+Where $i$ and $j$ are loop indexes. The loops iterate $N \times N$ times creating $N \times N$ blocks of split image $I$. This can be seen in function $tiled(image, N)$ in the Listing~\ref{list:tiled}. This function returns an list of $N\times N$ matrices, which represent split image $I$.
+
+\begin{lstlisting}[language=Python, caption=Image split function, label=list:tiled]
+def tiled(img, n_tiles):
+	tiles = []
+	height, width = img.shape
+	
+	for i in range(0,n_tiles):
+		for j in range(0,n_tiles):
+			row_range_lower = (i * height)//n_tiles
+			row_range_upper = (((i + 1) * height)//n_tiles) - 1
+			
+			col_range_lower = (j * width)//n_tiles
+			col_range_upper = (((j + 1) * width)//n_tiles) - 1
+			
+			tiles.append(img[row_range_lower:row_range_upper,col_range_lower:col_range_upper])
+	
+	return tiles
+\end{lstlisting}
+
+\subsubsection{Create new a image from a random order of blocks}
+After obtaining a list of $N \times N$ matrices created from image $i$, it's necessary create the new image with a new order as shown in Fig.~\ref{fig:subim2}. We decided to generalize the creation of image $I'$, using a random way of mixing matrices, for this we created a list of indexes of size $N \times N$, wich are disordered using the function $random.shiffle()$ provided by python random library. With this new index order we begin to construct a new image $I'$ as shown in Listing~\ref{list:create_mosaic}. For case when the number of blocks is $4 \times 4$, we use order established in Fig.~\ref{fig:subim2}.
+
+After performing different tests with code in Listing~\ref{list:mosaic_code}, we obtained the results shown in Fig.~\ref{fig:mosaic:results}, where we see processing of two images~\ref{fig:mosaic:baboon}~and~\ref{fig:mosaic:rage_me} with different sizes of $N \times N$.
+First processing was performed with square image shown in Fig.~\ref{fig:mosaic:baboon}. This was processed with different block sizes $N \times N$. The results are shown in Figs.~\ref{fig:mosaic:baboon_mosaic_2x2},~\ref{fig:mosaic:baboon_mosaic_4x4},~\ref{fig:mosaic:baboon_mosaic_8x8}~and~\ref{fig:mosaic:baboon_mosaic_40x40}, we can observe that there is no problem when processing different sizes of blocks, as long as they are smaller than the amount of pixels that are of width and height.
+The second processing was performed using different block sizes $N \times N$ to Fig.~\ref{fig:mosaic:rage_me}. The results can be seen in Figs.~\ref{fig:mosaic:rage_me_2x2},~\ref{fig:mosaic:rage_me_4x4},~\ref{fig:mosaic:rage_me_8x8}~and~\ref{fig:mosaic:rage_me_40x40}, with these results we can conclude that the algorithm work for non-square images, so this program works for all types of images supported by the scipy python library. The only consideration is that the height and width of the image $I$ should be greater than the number of blocks $N \times N$
+
+\begin{lstlisting}[language=Python, caption=Create mosaic function, label=list:create_mosaic]
+def create_mosaic(img, n_tiles=4):
+	img = preprocecing(img, n_tiles)
+	tiles = tiled(img, n_tiles)
+	
+	mosaic_order = np.arange(n_tiles**2)
+	random.shuffle(mosaic_order)
+	mosaic_order = mosaic_order.reshape((n_tiles, n_tiles)) if n_tiles != 4 else np.array([5, 10, 12, 2, 7, 15, 0, 8, 11, 13, 1, 6, 3, 14, 9, 4]).reshape((n_tiles, n_tiles))
+	
+	for i in range(0,n_tiles):
+		for j in range(0, n_tiles):
+			if j == 0:
+				new_row = tiles[mosaic_order[i][j]]
+			else:
+				new_row = np.concatenate((new_row,tiles[mosaic_order[i][j]]), axis=1)
+		if i == 0:
+			new_img = new_row
+		else:
+			new_img = np.concatenate((new_img, new_row), axis=0)
+	
+	return new_img
+\end{lstlisting}
+
+
+
+\begin{figure}
+	
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/baboon} 
+		\caption{Original}
+		\label{fig:mosaic:baboon}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/baboon_mosaic_2x2}
+		\caption{$2\times 2$}
+		\label{fig:mosaic:baboon_mosaic_2x2}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/baboon_mosaic_4x4}
+		\caption{$4\times 4$}
+		\label{fig:mosaic:baboon_mosaic_4x4}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/baboon_mosaic_8x8}
+		\caption{$8\times 8$}
+		\label{fig:mosaic:baboon_mosaic_8x8}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/baboon_mosaic_40x40}
+		\caption{$40\times 40$}
+		\label{fig:mosaic:baboon_mosaic_40x40}
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me} 
+		\caption{Original}
+		\label{fig:mosaic:rage_me}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me_mosaic_2x2}
+		\caption{$2\times 2$}
+		\label{fig:mosaic:rage_me_2x2}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me_mosaic_4x4}
+		\caption{$4\times 4$}
+		\label{fig:mosaic:rage_me_4x4}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me_mosaic_6x6}
+		\caption{$8\times 8$}
+		\label{fig:mosaic:rage_me_8x8}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.09\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me_mosaic_30x30}
+		\caption{$40\times 40$}
+		\label{fig:mosaic:rage_me_40x40}
+	\end{subfigure}
+
+	\caption{Images resulting from processing with differents numbers of blocks.}
+	\label{fig:mosaic:results}
+\end{figure}
+
+\subsection{Solution to the intensity transformation problem}
+\subsubsection{Get negative of a image}
+It is necessary to understand two basic concepts before you can perform the negative of an image:
+First, the range of possible values ​​of the pixels of an image $I$ can vary depending on the representation of this, for the case of our solution, all the images are represented with a range of possible values ​​between $0$ and $255$.
+Second, it is necessary to understand that in order to obtain the negative of an image, a transformation of the values of $pixels$ of image $I$ must be made, this transformation consists in changing the value of $pixel$ with its opposite in the scale, ie if the original $pixel$ is $0$, it must be transformed to $255$, if $1$ becomes $254$, so we can deduce eq.~(\ref{eq:negative_image}). Wich was implemented in the Listing~\ref{list:negative_function}
+
+
+\begin{equation}\label{eq:negative_image}
+I'(i,j) = 255 - I(i,j)
+\end{equation}
+The Results of applying function in Listing~\ref{list:negative_function} on different images can be seen in Fig.~\ref{fig:transformation:negative}, in which Figs.~\ref{fig:transformation:original}~and~\ref{fig:transformation:me_original} are original images and Figs.~\ref{fig:transformation:negative_}~and~\ref{fig:transformation:me_negative}  are resulting images from apply the eq.~(\ref{eq:negative_image}).
+
+\begin{lstlisting}[language=Python, caption=Negative function, label=list:negative_function]
+def negative(image):
+	return 255 - image
+\end{lstlisting}
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/city} 
+		\caption{Original}
+		\label{fig:transformation:original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/negative_city}
+		\caption{Negative}
+		\label{fig:transformation:negative_}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me} 
+		\caption{Original}
+		\label{fig:transformation:me_original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me_negative}
+		\caption{Negative}
+		\label{fig:transformation:me_negative}
+	\end{subfigure}
+
+	\caption{Original and negative images.}
+	\label{fig:transformation:negative}
+\end{figure}
+
+
+\subsubsection{Convert intensity interval to~[100, 200]}
+We decided to generalize this problem, so that the new interval would be $[n, m]$ where $0~\leq~n~\leq~m~\leq~255$, which allows us to perform any type of linear transformation on intensity of Image $I$, while it is defined with a range of $[0, 255]$. This transformation is described in eq.~(\ref{eq:transformation}) and implemented in Listing~\ref{list:trasnformation_function}.
+
+\begin{equation}\label{eq:transformation}
+I'(i,j) = \left(\dfrac{m - n}{255}\right) * I(i,j) + n
+\end{equation}
+
+In Fig.~\ref{fig:transformation:results} we can see the results of applying eq.~(\ref{eq:transformation}), where original image is Fig.~\ref{fig:transformation:original2} and Figs~\ref{fig:transformation:0-150},~\ref{fig:transformation:100-200},~\ref{fig:transformation:150-255}  are resulting images from applying transformations with ranges of $[0,150]$, $[100,200]$ and $[150, 255]$ respectively. The complete code of this section can be seen in the Listing~\ref{list:transformation_code}.
+As in previous problem, this code can be used with any kind of images supported by scipy python library.
+
+\begin{lstlisting}[language=Python, caption=Transformation function, label=list:trasnformation_function]
+def transformation(image, initial_range, final_range):
+	return np.uint8(((final_range - initial_range)*image)//255 + initial_range)
+\end{lstlisting}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/city} 
+		\caption{Original}
+		\label{fig:transformation:original2}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/transformation_city_0_150}
+		\caption{[0 - 150]}
+		\label{fig:transformation:0-150}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/transformation_city_100_200}
+		\caption{[100 - 200]}
+		\label{fig:transformation:100-200}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/transformation_city_150_255}
+		\caption{[150 - 255]}
+		\label{fig:transformation:150-255}
+	\end{subfigure}
+	
+	\caption{Images resulting from processing with differents ranges of transformation.}
+	\label{fig:transformation:results}
+\end{figure}
+
+
+\begin{figure}[!]
+	\centering
+	\begin{subfigure}{0.2\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/house} 
+		\caption{Image A}
+		\label{fig:merge:original_a}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.2\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/seagull}
+		\caption{Image B}
+		\label{fig:merge:original_b}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/combination_01_09} 
+		\caption{$0.1\cdot A+0.9\cdot B$}
+		\label{fig:merge:combination_01_09}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/combination_02_08} 
+		\caption{$0.2\cdot A+0.8\cdot B$}
+		\label{fig:merge:combination_02_08}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/combination_03_07}
+		\caption{$0.3\cdot A+0.7\cdot B$}
+		\label{fig:merge:combination_03_07}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/combination_05_05} 
+		\caption{$0.5\cdot A+0.5\cdot B$}
+		\label{fig:merge:combination_05_05}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/combination_06_04}
+		\caption{$0.6\cdot A+0.4\cdot B$}
+		\label{fig:merge:combination_06_04}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.14\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/combination_08_02}
+		\caption{$0.8\cdot A+0.2\cdot B$}
+		\label{fig:merge:combination_08_02}
+	\end{subfigure}
+	
+	\caption{Images resulting from combination of A and B with different multiplicative factors.}
+	\label{fig:combination:results}
+	
+\end{figure}
+
+
+\subsection{Combination of images}
+As in the other problems, it was decided to generalize the solution. For this, a program was created that would allow the combination of two images $I_1$ and $I_2$, using different multiplicative factors. The method used to perform this combination can be seen in the eq.~(\ref{eq:combination}) or in its implementation in Listing~\ref{list:combination_function}.
+
+\begin{equation}\label{eq:combination}
+I'(i,j) = p_1 * I_1(i, j) + p_2 * I_2(i, j)
+\end{equation}
+
+\begin{lstlisting}[language=Python, caption=Combination function, label=list:combination_function]
+def merge(img1, img2, percentage1, percentage2):
+	return percentage1*img1 + percentage2*img2
+\end{lstlisting}
+
+Different experiments were performed by mixing two images (Fig.~\ref{fig:merge:original_a}~and~\ref{fig:merge:original_b}), using different multiplicative factors. In Figs.~\ref{fig:merge:combination_01_09}~and~\ref{fig:merge:combination_02_08} we use a factor favoring Fig.~\ref{fig:merge:original_b}, where can see that this is the predominant in the combination. In the Figs.~\ref{fig:merge:combination_06_04}~and~\ref{fig:merge:combination_08_02} the multiplicative factor favors Fig.~\ref{fig:merge:original_a}. Can also observe that using a factor that similar weights on two images can give results where both image have similar weights at the level of visual information, as in Fig.~\ref{fig:merge:combination_05_05}~and~\ref{fig:merge:combination_06_04}. The code used to solve this problem can be seen in Listing.~\ref{list:combination_code}.
+
+
+\appendices
+\section{Mosaic code}
+
+\begin{lstlisting}[language=Python, caption=Mosaic code, label=list:mosaic_code]
+import sys
+import random
+
+from scipy import misc
+import numpy as np
+
+def tiled(img, n_tiles):
+	tiles = []
+	height, width = img.shape
+	
+	for i in range(0,n_tiles):
+		for j in range(0,n_tiles):
+			row_range_lower = (i * height)//n_tiles
+			row_range_upper = (((i + 1) * height)//n_tiles) - 1
+			
+			col_range_lower = (j * width)//n_tiles
+			col_range_upper = (((j + 1) * width)//n_tiles) - 1
+			
+			tiles.append(img[row_range_lower:row_range_upper,col_range_lower:col_range_upper])
+	
+	return tiles
+
+def preprocessing(img, n_tiles):
+	height, width = img.shape
+	
+	new_width = (width // n_tiles) * n_tiles
+	new_height = (height // n_tiles) * n_tiles
+	
+	new_img = img[0:new_height, 0:new_width]
+	
+	return new_img
+
+
+def create_mosaic(img, n_tiles=4):
+	img = preprocessing(img, n_tiles)
+	tiles = tiled(img, n_tiles)
+	
+	mosaic_order = np.arange(n_tiles**2)
+	random.shuffle(mosaic_order)
+	mosaic_order = mosaic_order.reshape((n_tiles, n_tiles)) if n_tiles != 4 else np.array([5, 10, 12, 2, 7, 15, 0, 8, 11, 13, 1, 6, 3, 14, 9, 4]).reshape((n_tiles, n_tiles))
+	
+	for i in range(0,n_tiles):
+		for j in range(0, n_tiles):
+			if j == 0:
+				new_row = tiles[mosaic_order[i][j]]
+			else:
+				new_row = np.concatenate((new_row,tiles[mosaic_order[i][j]]), axis=1)
+		if i == 0:
+			new_img = new_row
+		else:
+			new_img = np.concatenate((new_img, new_row), axis=0)
+	
+	return new_img
+
+
+def main(argv):
+	if (len(argv) < 4):
+		print("Incorrect number of arguments")
+		print("Execute: python3 filename.py filename_in filename_out number_of_tiles")
+		return -1
+	
+	filename_in = argv[1]
+	filename_out = argv[2]
+	n_tiles = int(argv[3])
+	
+	image = misc.imread(filename_in, True)
+	new_img = create_mosaic(image, n_tiles)
+	
+	misc.imsave(filename_out, new_img)
+
+
+if __name__ == "__main__":
+	sys.exit(main(sys.argv))
+\end{lstlisting}
+
+
+\section{Transformation code}
+\begin{lstlisting}[language=Python, caption=Transformation code, label=list:transformation_code]
+import sys
+
+from scipy import misc
+import numpy as np
+
+def negative(image):
+	return 255 - image
+
+def transformation(image, initial_range, final_range):
+    return np.uint8(((final_range - initial_range)*image)//255 + initial_range)
+
+def main(argv):
+	if (len(argv) < 6):
+		print("Incorrect number of arguments")
+		print("Execute: python3 filename.py filename_in filename_negative filename_transformation initial_range final_range")
+		return -1
+		
+	filename_in = argv[1]
+	filename_negative = argv[2]
+	filename_transformation = argv[3]
+	initial_range = int(argv[4])
+	final_range = int(argv[5])
+	
+	image = misc.imread(filename_in, True)
+	
+	img_negative = negative(image)
+	img_transformation = transformation(image, initial_range, final_range)
+	
+	misc.imsave(filename_negative, img_negative)
+	misc.imsave(filename_transformation, img_transformation)
+	
+	return 0
+
+if __name__ == "__main__":
+	sys.exit(main(sys.argv))
+\end{lstlisting}
+
+\section{Combination code}
+\begin{lstlisting}[language=Python, caption=Combination code, label=list:combination_code]
+import sys
+
+from scipy import misc
+import numpy as np
+
+
+def merge(img1, img2, percentage1, percentage2):
+	return percentage1*img1 + percentage2*img2
+
+def main(argv):
+	if (len(argv) < 6):
+		print("Incorrect number of arguments")
+		print("Execute: python3 file1 file2 percentage1 percentage2 filename_out")
+		return -1
+	
+	filename1 = argv[1]
+	filename2 = argv[2]
+	percentage1 = float(argv[3])
+	percentage2 = float(argv[4])
+	filename_out = argv[5]
+	
+	if percentage1 > 1.0 or percentage2 > 1.0 or percentage1 < 0.0 or percentage2 < 0.0:
+		print("Percentage must be greater than 0.0 and less than 1.0")
+		return -1
+	
+	if percentage1 + percentage2 != 1.0:
+		print("Percentage1 plus percentaje2 must be 1.0")
+		return -1
+	
+	
+	image1 = misc.imread(filename1, True)
+	image2 = misc.imread(filename2, True)
+	
+	if image1.shape != image2.shape:
+		print("Images must be the same size")
+		return -1
+	
+	merged_image = merge(image1, image2, percentage1, percentage2)
+	
+	misc.imsave(filename_out, merged_image)
+	
+	return 0
+
+if __name__ == "__main__":
+	sys.exit(main(sys.argv))
+\end{lstlisting}
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/photo}}]{Miguel~Rodriguez}
+	IEEE Member: 93224316, RA: 192744. MSc Student from UNICAMP, Brazil. Computers and Telecommunications Engineer from Diego Portales University, Chile. A charismatic young boy, empathic, a history and culture lover, motivated to travel around the world and learn about different cultures we can find in our planet. 
+	
+	The most noticed abilities are: the capacity to work as a team with people from different areas, the power to surpass problems without losing the desire and motivation to solve them, the great capacity and encouragement to learn new and interesting staffs, being this one, the best ability I earned during my college period. 
+	
+	Very interested in keep improving the skills in labour and the academic field; always searching new technologies and new techniques and moral challenges, especially in areas like artificial intelligence. A bike lover and technologies which use renewable energy, this due to the big motivation to build a future where technology and science can pacifically coexist with nature and that way contribute to improve the life quality in society.
+\end{IEEEbiography}
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+

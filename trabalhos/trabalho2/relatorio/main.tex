@@ -1,0 +1,1283 @@
+
+\documentclass[journal]{IEEEtran}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage[inline]{enumitem}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{red},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=3pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=1
+}
+
+\lstset{style=mystyle}
+
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Report II}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Miguel~Rodr\'iguez,~RA:~192744,~Email:~m.rodriguezs1990@gmail.com}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{introduction to digital image processing, MO443, Teacher: H\'elio Pedrini, INSTITUTE OF COMPUTING, UNICAMP}%
+{}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+\section{Problem}
+\label{sec:problem}
+%El objetivo de este trabajo es estudiar las distintas tecnicas basicas para poder realizar video sumarization. El video sumarization es una tecnica utilizada para poder realizar una comprension visual de los cuadros del video, la cual consiste en obtener las transiciones abruptas dentro del video, y realizar un resumen de las escenas que ocurren en un video.
+%Se puede observar en la Fig.~\ref{fig:video:descomposition}, como un video puede ser descompuesto en escenas y cada una de esas escenas en tomas, las cuales marcan las transacciones abruptas que existen entre un frame y otro, las tecnicas mas clasicas de video sumarization consisten en poder capturar estos cambios de tomas y realizar el resumen a partir de cada unos de estos cambios abruptos. 
+%Esta reduccion del video puede ayudar en distintas areas que se utilicen los videos, como: video survillnace, donde es necesario realizar revisiones rapidas de los sucesos de los videos, en busqueda de videos, donde es importante poder realizar una compresion de la informacion del video para luego poder realizar una indexacion de este, en paginas donde el contenido mostrado sea basado en videos, lo cual permitiria poder ver un resumen visual de lo que se muestra en un video antes de reproducirlo, y por ultimo puede utilizarse en tecnicas de machine learnign para no procesar el video completo, se puede realizar el procesamiento de los resuemnes para el entrenamiento.
+
+%El trabajo estara divido en cuatro partes, las cuales seran la aplicacion de 4 tecnicas distitnas para poder realizar video sumarization.
+
+The objective of this work is to study the different basic techniques to be able to perform video summarization The video summarization is a technique used to make a visual understanding of the frames of video, which consists of obtaining the abrupt transitions within the video, and summarize the scenes that occur in a video.
+It can be seen in Fig.~\ref{fig:video:descomposition}, as a video can be decomposed into scenes and each of those scenes in shots, which mark the abrupt transactions that exist between one frame and another. The most classic techniques of video summarization are able to capture these shots changes and to make the summary from each of these abrupt changes. 
+This reduction of the video can help in different areas that are used the videos, such as: video surveillance, where it is necessary to make rapid reviews of the events in the videos; in video indexing, where it is important to be able to make a compression of the information of the video; in pages where the content shown is based on videos, which would allow you to see a visual summary of what is shown in a video before playing it; and finally can be used in machine learning techniques to not process the complete video, the processing only the summary.
+This work will be divided into four parts, which will be the application of four techniques to be able to perform video summarization.
+
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/video_descomposition} 
+	\caption{Decomposition of a video, in scenes, shots and frames.}
+	\label{fig:video:descomposition}
+\end{figure}
+
+\subsection{Pixels difference}
+%Esta tecnica consiste en encontrar las tomas de un video a traves de la diferencia que existe entre los pixeles de los cuadros. Para poder calcular estas diferencias se realiza una resta simple entre el cuadro analizado y el cuadro predecesor, si la cantidad de pixeles que son mayores que un threshold $T_1$ es mayor que otro threshold $T_2$, entonces ese cuadro es considerado como una nueva toma.
+This technique consists in finding the shots of a video through the difference that exists between the pixels of the frames. In order to calculate these differences a simple subtraction is perfomed between the analyzed frame and the predecessor frame, if the number of pixels that are greater that a threshold $t_1$ is greater that another threshold $t_2$, then that frame is considered as a abrupt change.
+
+\subsection{Blocks difference}
+%Esta tecnica consiste en encontrar las tomas de un video a traves de la descomposicion de los cuadros en $N\times N$ bloques. Donde se calcula la diferencia o error de cada uno de estos cuadros entre el cuadro analizado y su predecesor, si el error es mayor que un threshold $T_1$ y la cantidad de cuadros que supera ese error es mayor que $T_2$ el cuadro es considerado una nueva toma.
+
+This technique consists in finding the shots of a video through the decomposition of the frames in $N\times N$ blocks. Where the difference or error between the analyzed frame and its predecessor is calculated, if the error is greater that a threshold $t_1$ and the number of blocks that exceeds that error is greater than $t_2$, the frame is considered a new shot.
+
+
+\subsection{Histograms difference}
+%Esta tecnica consiste en encontrar las tomas de un video a traves de la diferencia de histogramas, si la suma de las diferencias del histograma es mayor que el threshold $T_1$, el frame es considerado una toma nueva.
+This technique consists in finding the shots of a video through the difference of histograms, if the sum of the histograms difference is grater that the threshold $t_1$, the frame is considered a new shot.
+
+\subsection{Edges difference}
+%Esta tecnica consiste en encontrar las tomas de un video a traves de las diferencias existentes en los mapas de bordes de los cuadros del video, si la diferencia es mayor que un threshold $T_1$, el cuadro es considerado una toma nueva.
+This technique consist in finding the shots of a video through the existing differences in the border maps of the video frames. If the differences is greater that a threshold $t_1$, the frame is considered a new shot.
+
+\section{Solution}
+\label{sec:solution}
+%The video sumarization es una tecnica muy utilizada para poder resumer los eventos que ocurren en un video, estos eventos pueden ser catalogados como tomas (See Fig.~\ref{fig:video:descomposition}). Para poder encontrar estas tomas en un video, es necesario analizar cuadro por cuadro para ver cuando se producen los cambios bruscos, los cuales son marcados como un cambio de cuadro. 
+The video summarization is a technique used to summarize events that occur in a video, these events can be cataloged as shots (See Fig.~\ref{fig:video:descomposition}). In order to find these shots in a video, it is necessary to analyze frame by frame to see when sudden changes occur, which are marked as a frame change. In this work, we present four different parametric techniques that enable the recognition of key frames for video summarization.
+%En este trabajo presentaremos cuatro distintas tecnicas parametricas para poder realizar el reconocimiento de los cuadros clave.
+
+\subsection{Pixels difference}
+%Esta tecnica puede ser considerada como la mas ingenua, consiste en realizar un barrido del video cuadro por cuadro, en donde cada cuadro $t_n$ es analizado con su predecesor $t_{n-1}$. Para poder decidir si un cuadro es considerado una nueva toma se utiliza la siguiente formulacion, se realiza la resta del cuadro actual con el anterior, luego de esta imagen resultante, se cuentan todos los pixeles que sean mayores que un threshold $t_1$ (el cual varia entre los valores posibles de la escala de gris, para todos los experimentos entre 0 - 255) y esta cuenta se divide por la cantidad de pixeles de la imagen (para asi poder tener numeros entre 0 y 1), si esta cuenta es mayor que un threshold $t_2$ el cuadro es considerado el inicio de una nueva toma, por lo cual es considerado dentro del resumen del video. Este proceso puede ser visto en forma de codigo en el Listing~\ref{list:shot_cut_pixel_differences_function}.
+This technique can be considered as the most naive approach, consists in performing a scan of the video frame by frame, where each frame $t_n$ is analyzed with its predecessor $t_{n-1}$. In order to decide whether a frame is considered a new shot, the following formulation is used: the subtraction of the current frame is performed with the previous one, after this resulting image, all pixels that are greater that a threshold $t_1$ ( Which varies among the possible values of the gray scale, for all experiment between 0-255) are counted, and this count is divided by the number of pixels of the frame (to be able to have numbers between 0 and 1), if this account is greater that a threshold $t_2$, the frame is considered the beginning of a new shot, and this is considered within the summary of the video.  This process can be seen as a code in the Listing~\ref{list:shot_cut_pixel_differences_function}.
+
+
+\begin{lstlisting}[language=Python, caption=Function that calculates whether a frame and its precedessor have a difference that can be considered as a change of shot., label=list:shot_cut_pixel_differences_function]
+def shot_cut_pixel_differences(frame0, frame1, pixel_threshold, frame_threshold):
+	#Get difference
+	diff = cv2.absdiff(frame0,frame1)
+	diff[diff < pixel_threshold] = 0
+	diff[diff >= pixel_threshold] = 1
+	#Get size of frames
+	size = 1
+	for x in diff.shape:
+		size *= x
+	ratio = diff.sum()/size
+	#Verify threshold
+	if (ratio >= frame_threshold):
+		return True, ratio
+	else:
+		return False, ratio
+\end{lstlisting}
+
+
+
+%Para este procedimiento utilizamos cuatro videos para experimetos. Estos consistieron en realizar una busqueda por prueba y error de los mejores hiperparametros para los threshold $t_1$ y $t_2$, para poder realizar esta busqueda utilizamos los graficos de diferencias mostrados en la Fig.~\ref{fig:pixel_difference:graph}, en los caules se puede observar como se comportan las diferencias entre los cuadros a lo largo de todo el video (Linea azul) y en rojo se muestra el threshold de corte para elegir que cuadros son elegidos para la sumarization. Como se puede ver en los graficos, encontrar un parametro que permita acertar de forma optima a la cantidad de tomas de un video es un proceso que conlleva experimentacion para cada video. En las Figs.~\ref{fig:pixel_difference:graph:lisa_16_50},~\ref{fig:pixel_difference:graph:lisa_64_20},~\ref{fig:pixel_difference:graph:news_32_50}~and~\ref{fig:pixel_difference:graph:news_128_10}, las cuales pertenecen al video Lisa y al video News, se puede ver que de forma muy facil fue posible encontrar un threshold, esto debido a que los frames que marcan las transiciones, tienen diferencias muy abruptas con, por lo cual fue facil encontrar los cuadros para resumir el video, esto puede ser visto en las Fig.~\ref{fig:pixel_difference:resumen:lisa_16_50},~\ref{fig:pixel_difference:resumen:lisa_64_20},~\ref{fig:pixel_difference:resumen:news_32_50}~and~\ref{fig:pixel_difference:resumen:news_128_10}, en las cuales se muestra los resumenes resultantes de la extraccion de los key frames.
+For this procedure we used four videos for experiments. These were to perform a trial and error search of the best hyper parameters for thresholds $t_1$ and $t_2$, in order to perform this search we use the graphs of difference shown in Fig.~\ref{fig:pixel_difference:graph}, in which we can see how the difference between the frames throughout the video (Blue line) behave and the cut threshold is shown in red to choose which frames are chosen for the summarization. As we can seen in the graphs, finding a parameter that allows to optimize the number of shots of a video is a process that entails experimentation for each video. In Figs.~\ref{fig:pixel_difference:graph:lisa_16_50},~\ref{fig:pixel_difference:graph:lisa_64_20},~\ref{fig:pixel_difference:graph:news_32_50}~and~\ref{fig:pixel_difference:graph:news_128_10}, which belong to the video Lisa and the video News, we can see that it was very easy to find a threshold, this because the frame that mark the transition, have very abrupt difference, for it was easy to find the frames to summarize the video. This can be seen in the Fig.~\ref{fig:pixel_difference:resumen:lisa_16_50},~\ref{fig:pixel_difference:resumen:lisa_64_20},~\ref{fig:pixel_difference:resumen:news_32_50}~and~\ref{fig:pixel_difference:resumen:news_128_10}, in which summaries resulting from the extraction of key frames are shown.
+
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/lisa_pixel_difference_16_50} 
+		\caption{Video Lisa with $t_1 = 16$ and $t_2 = 50\%$}
+		\label{fig:pixel_difference:graph:lisa_16_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/lisa_pixel_difference_64_20}
+		\caption{Video Lisa with $t_1 = 64$ and $t_2 = 20\%$}
+		\label{fig:pixel_difference:graph:lisa_64_20}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/monito_pixel_difference_64_50} 
+		\caption{Video Cartoon with $t_1 = 64$ and $t_2 = 50\%$}
+		\label{fig:pixel_difference:graph:cartoon_64_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/monito_pixel_difference_128_20}
+		\caption{Video Cartoon with $t_1 = 128$ and $t_2 = 20\%$}
+		\label{fig:pixel_difference:graph:cartoon_128_20}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/news_pixel_difference_32_50} 
+		\caption{Video News with $t_1 = 32$ and $t_2 = 50\%$}
+		\label{fig:pixel_difference:graph:news_32_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/news_pixel_difference_128_10}
+		\caption{Video News with $t_1 = 128$ and $t_2 = 10\%$}
+		\label{fig:pixel_difference:graph:news_128_10}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/rca_pixel_difference_32_40} 
+		\caption{Video RCA with $t_1 = 32$ and $t_2 = 40\%$}
+		\label{fig:pixel_difference:graph:rca_32_40} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/pixel_difference/graph/rca_pixel_difference_64_20}
+		\caption{Video RCA with $t_1 = 64$ and $t_2 = 20\%$}
+		\label{fig:pixel_difference:graph:rca_64_20}
+	\end{subfigure}
+	
+	\caption{Resulting graphs from the application of the pixel difference process. The x axis shows the frames and the y axis show the metric difference used to categorize whether or not a frame is a change of shot.}
+	\label{fig:pixel_difference:graph}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/lisa_pixel_difference_16_50} 
+		\caption{Video Lisa with $t_1 = 16$ and $t_2 = 50\%$}
+		\label{fig:pixel_difference:resumen:lisa_16_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/lisa_pixel_difference_64_20}
+		\caption{Video Lisa with $t_1 = 64$ and $t_2 = 20\%$}
+		\label{fig:pixel_difference:resumen:lisa_64_20}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/monito_pixel_difference_64_50} 
+		\caption{Video Cartoon with $t_1 = 64$ and $t_2 = 50\%$}
+		\label{fig:pixel_difference:resumen:cartoon_64_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/monito_pixel_difference_128_20}
+		\caption{Video Cartoon with $t_1 = 128$ and $t_2 = 20\%$}
+		\label{fig:pixel_difference:resumen:cartoon_128_20}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/news_pixel_difference_32_50} 
+		\caption{Video News with $t_1 = 32$ and $t_2 = 50\%$}
+		\label{fig:pixel_difference:resumen:news_32_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/news_pixel_difference_128_10}
+		\caption{Video News with $t_1 = 128$ and $t_2 = 10\%$}
+		\label{fig:pixel_difference:resumen:news_128_10}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/rca_pixel_difference_32_40} 
+		\caption{Video RCA with $t_1 = 32$ and $t_2 = 40\%$}
+		\label{fig:pixel_difference:resumen:rca_32_40} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/pixel_difference/resumen/rca_pixel_difference_64_20}
+		\caption{Video RCA with $t_1 = 64$ and $t_2 = 20\%$}
+		\label{fig:pixel_difference:resumen:rca_64_20}
+	\end{subfigure}
+	
+	\caption{Summaries of selected frames, in that we can see the summaries produced by the application of the Listing~\ref{list:shot_cut_pixel_differences_function}.}
+	\label{fig:pixel_difference:resumen}
+\end{figure}
+
+
+
+%Por otro lado en las Figs.~\ref{fig:pixel_difference:graph:cartoon_64_50},~\ref{fig:pixel_difference:graph:cartoon_128_20},~\ref{fig:pixel_difference:graph:rca_32_40}~and~\ref{fig:pixel_difference:graph:rca_64_20}, se puede ver que encontrar los key frames para las transiciones es muy dificil, esto debido a que estos videos son mas largos y muestran muchas transiciones entre ellos, ademas tambien juegan con cuadros iguales pero con distintos tonos de color, por lo cual para este metodo al tener distintos tonos de color si la diferencia es muy grande puede contrar como un cmabio de cuadro, siendo que se mantiene en la misma escena. En las Figs..~\ref{fig:pixel_difference:resumen:cartoon_64_50},~\ref{fig:pixel_difference:resumen:cartoon_128_20},~\ref{fig:pixel_difference:resumen:rca_32_40}~and~\ref{fig:pixel_difference:resumen:rca_64_20}, se puede ver que los resumenes resultantes de los videos tienen muchos cuadros seleccionados como cambios de escena, pero estos son parte de la misma, esto debido a que los cambios de colores provocan que el metodo cometa el error de clasificar mal.
+On the other hand, in Figs.~\ref{fig:pixel_difference:graph:cartoon_64_50},~\ref{fig:pixel_difference:graph:cartoon_128_20},~\ref{fig:pixel_difference:graph:rca_32_40}~and~\ref{fig:pixel_difference:graph:rca_64_20}, we can see that finding the key frames for transition is very difficult, because these videos are longer and show many transitions between them, they also have frames with the same shape, but they have different gray scale values. For this method to have different gray scale values if the differences is very large can be counted as a key frame, being that it stays in the same scene. In Figs.~\ref{fig:pixel_difference:resumen:cartoon_64_50},~\ref{fig:pixel_difference:resumen:cartoon_128_20},~\ref{fig:pixel_difference:resumen:rca_32_40}~and~\ref{fig:pixel_difference:resumen:rca_64_20}, we can see that the resulting summaries of the videos have many frames selected as scene changes, but these are part of this scene, this becaus the color changes cause the method to make the error to classify.
+
+
+%En conclusion, el metodo de diferencia de pixeles es una forma ingenua de poder atacar el problema de video sumarization, este tiene soluciones bastante aceptables, pero el metodo tiene dos grandes problemas, primero la dependencia de los colores mostrados, y la parametrizacion de las variables, este metodo bien parametrizado podria servir para realizar  resumenes de videos donde se sepa que las variables de entorno estan bien controladas.
+In conclusion, the method of difference of pixels is a naive way of attacking the problem of video summarization, this one has quite acceptable solutions, but the method has two big problems, first the dependence of the colors shown, and the parameterization of the variables. This method well parameterized could be used to make summaries of videos where it is known that the environment variables are well controlled.
+
+
+\begin{table}
+	\centering
+	\begin{tabular}{ | c | c | c | c | c | c | c |}
+		\hline
+		& \multicolumn{6}{|c|}{Experiments} \\ 
+		\cline{2-7}
+		& \multicolumn{3}{|c|}{I} &  \multicolumn{3}{|c|}{II} \\
+		\hline
+		Video  & $t_1$ & $t_2$ & Frames & $t_1$ & $t_2$ & Frames  \\
+		\hline
+		Lisa & 32 & 50\% & 3 & 64 & 30\% & 2 \\
+		Cartoon & 64 & 50\% & 29 & 128 & 20\% & 35 \\
+		News & 32 & 50\% & 5 & 128 & 10\% & 3 \\
+		RCA & 32 & 40\% & 18 & 64 & 20\% & 24 \\
+		
+		\hline
+	\end{tabular}
+	\caption{Summary table of the experiments performed with the videos, show the thresholds and number of frames found that satisfy the restrictions.}
+	\label{tab:table:pixel_difference}
+\end{table}
+
+
+\subsection{Blocks difference}
+%Este tecnica es un poco mas elaborada que la tecnica anteriomente mostrada, tambien consiste en calcular la diferencia entre cada cuadro del video y a traves de un procedimiento saber si el cuadro analizado corresponde a una transicion o no. Para poder saber si el cuadro es un cambio de toma, cada cuadro es divido en $N\times N$ imagenes mas pequeñas, las cuales son comparadas entre si a traves de la utilizacion del Normalised Mean Square Error (See eq.~\ref{eq:nmse}). Un cuadro es marcado como un nuevo corte cuando la suma de todos los cuadros donde el error calculado es mayor que $t_1$ es mayor que otro threshold $T_2$. Donde el $T_1$ es el \% de error aceptado para differenciar cada tile, y $T_2$ es el porcentaje de tiles pequeños de la imagen que son marcados como diferente necesarios para marcar el frame como distinto.
+This technique is a little more elaborate that the technique previously shown, it also consists of calculating the difference between each frame of the video and through a procedure know if the frame analyzed correspond to a transition or not. In order to know if a frame is a change of shot, each frame is splitted into $N\times N$ smaller images, which are compared to each other through the use of the Normalized Mean Square Error (See eq.~\ref{eq:nmse}). A frame is marked as a new shot when the sum of all splitted images where the calculated error is greater that $t_1$ is greater than another threshold $t_2$. Where $t_1$ is the \% of error accepted to differentiate each tile, and $t_2$ is the percentage of small tiles in the image that are marked as different needed to mark the frame as different.
+
+
+\begin{equation}
+\label{eq:nmse}
+NMSE(F_{n}, F_{n+1}) = \sum \frac {(F_{n} - F_{n+1})^2}{F_{n}^2}
+\end{equation}
+
+%Para poder dividir la imagen en $N\times N$ tiles, se utilizo la funcion creada en el trabajo 0 del aula, la cual dado un tamaño $N$ o $n\_tiles$, divide la retorna un vector con $N\times N$ imagenes perteneciente a la imagen origina. Esta funcion puede ser vista en el Listing~\ref{list:tiled_function}.
+In order to divide the image into  $N\times N$ tiles, we used the function created in the work zero of the classroom, which, given a size $N$ o $n\_tiles$, returns a vector with  $N\times N$ images belonging to the original image. This function can be seen in the Listing~\ref{list:tiled_function}.
+\begin{lstlisting}[language=Python, caption=Function used to split image into $N\times N$ tiles., label=list:tiled_function]
+def tiled(img, n_tiles):
+	tiles = []
+	height, width = img.shape
+	
+	for i in range(0,n_tiles):
+		for j in range(0,n_tiles):
+			row_range_lower = (i * height)//n_tiles
+			row_range_upper = (((i + 1) * height)//n_tiles) - 1
+			col_range_lower = (j * width)//n_tiles
+			col_range_upper = (((j + 1) * width)//n_tiles) - 1
+			tiles.append(img[row_range_lower:row_range_upper,col_range_lower:col_range_upper])
+	return tiles
+\end{lstlisting}
+
+After dividing the observed frame and its predecessor, it is necessary to know if it meets the requirements to be considered a key frame, so for this process we use the function of Listing~\ref{list:blocks_difference_function}, which calculates the error through Eq~\ref{eq:nmse} for each block difference, and counts which are greater that $t_1$, then see if the number of blocks that gave true are grater that $t_2$, if so, that frame is considered as a key frame.
+
+\begin{lstlisting}[language=Python, caption=Function used to detect whether a frame is a shot change., label=list:blocks_difference_function]
+def shot_cut_blocks(blocks0, blocks1, n_tiles, error_threshold, blocks_threshold):
+	diff_blocks = 0
+	for i in range(n_tiles*n_tiles):
+		nmse = error(blocks0[i], blocks1[i])
+		if(nmse >= error_threshold):
+			diff_blocks += 1
+	diff_blocks /= (n_tiles**2)
+	if(diff_blocks >= blocks_threshold):
+		return True, diff_blocks
+	else:
+		return False, diff_blocks
+\end{lstlisting}
+
+%El gran problema de los metodos con hiperparametros, es el problema de la busqueda de los parametros para un funcionamento optimo, al igual que en todas las soluciones propuestas en este trabajo, para este metodo tambien fue necesario realizar una busqueda exhaustiva de los parametros para un mejor desempeño, en la Fig.~\ref{fig:block_difference:graph}, se muestran los graficos resultantes del proceso de busqueda, en los cuales se puede ver que para este metodo los videos como Car, Lisa y News (Figs.~\ref{fig:block_difference:graph:auto_8_90_60},~\ref{fig:block_difference:graph:car_16_90_60},~\ref{fig:block_difference:graph:lisa_8_90_70},~\ref{fig:block_difference:graph:lisa_32_50_70},~\ref{fig:block_difference:graph:news_8_90_70}~and~\ref{fig:block_difference:graph:news_16_90_70}) no representan ningun problema a la hora de encontrar facilmente los hiperparametros, en cambio el video Cartoon (El mismo que presentaba problemas con el video anterior) presenta problemas para poder encontrar las key frames, esto debido a la gran cantidad de cambios que tiene. El metodo de bloques al ser un metodo mas robusto, tiene un mejor comportamiento con respecto a los cambios de colores en la misma escena, asi se puede ver en los resumenes desplegados en la Fig.~\ref{fig:block_difference:resumen}, el video Carton ya no presenta el problema de la eleccion de key frames de una misma escena solo por los cambios de tonalidades, pero aun asi este probelma aum persiste en este metodo, debido a que en el resumen del video Lisa(See Fig.~\ref{fig:block_difference:resumen:lisa_8_90_70}) se puede observar que en una misma escena, se eligieron varios cuadros como key frames, esto debido al cambio en el contraste de la escena. Los resultados de la busqueda de los hiperparametros para estos videos pueden ser vistos en la Table~\ref{tab:table:block_difference}, la cual muestra los valores elegidos para los hiperparametros y la cantidad de key frames encontrados.
+The big problem of the methods with hyper parameters, is the problem of the optimization of the parameters for its better operation. As in all the solutions proposed in this work, for this method it was also necessary to carry out an exhaustive search of the parameters for a better performance. In Fig.~\ref{fig:block_difference:graph}, the graphs resulting from search process are shown, in which the videos such as Car, Lisa and News (See Figs.~\ref{fig:block_difference:graph:auto_8_90_60},~\ref{fig:block_difference:graph:car_16_90_60},~\ref{fig:block_difference:graph:lisa_8_90_70},~\ref{fig:block_difference:graph:lisa_32_50_70},~\ref{fig:block_difference:graph:news_8_90_70}~and~\ref{fig:block_difference:graph:news_16_90_70}) don't present any problem when easily finding the hyper parameters. On the other hand, in the Cartoon video (The same video that presented problems with the previous method) presents problems to be able to find the key frames, this due to the great amount of changes that has. The method of blocks being a more robust method, has a better behavior with respect to the changes of colors in the same scene, as can be seen in the summaries deployed in Fig.~\ref{fig:block_difference:resumen}, The video Cartoon no longer presents the problem of the choice of key frame of the same scene only by the changes of tones. But this problem of tones still persists in this method, as can be seen in the summary of the Lisa video (See Fig.~\ref{fig:block_difference:resumen:lisa_8_90_70}) where it is observed that in the same scene, several frames were chosen as key frames, this due to the change of contrast in the scene. The results of the hyper parameter search for these videos can be seen in the Table~\ref{tab:table:block_difference}, which shows the values chosen for the hyper parameters and the number of key frames found.
+
+%Como conclusion podemos decir que este metodo es mucho mas robusto que el anterior, esto debido a que las diferencias no las mide a traves de la imagen completa, sino que divide el problema en medir la diferencia entre varias pequeñas sub imagens, mientras mas grande sea la division, mas detalle se puede tener, pero a su vez el metodo se vuelve mas lento debido a la cantidad de calculos que se deben realzar. Tambien la utilizacion de una metrica de error normalizada permite poder realizar comparaciones entre imagenes de forma porcentual, lo cual permite ver mejor lo que se esta haciendo.  
+As a conclusion we can say that this method is much more robust that the previous one, because the differences do not measure them through the whole image, but it divides the problem into measuring the difference between several small sub images, while more bigger the division, more detail can be had, but in turn the method becomes slower due to the amount of calculations that should be performed. Also the use of a normalized error metric allows to make comparisons between images in percentage form, which allows to see better what is being done.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/auto_block_difference_8_90_60} 
+		\caption{Video Car with $n\_tiles = 8$, $t_1 = 90\%$ and $t_2 = 60\%$}
+		\label{fig:block_difference:graph:auto_8_90_60} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/auto_block_difference_16_90_60}
+		\caption{Video Car with $n\_tiles = 16$, $t_1 = 90\%$ and $t_2 = 60\%$}
+		\label{fig:block_difference:graph:car_16_90_60}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/lisa_block_difference_8_90_70} 
+		\caption{Video Lisa with $n\_tiles = 8$, $t_1 = 90\%$ and $t_2 = 70\%$}
+		\label{fig:block_difference:graph:lisa_8_90_70} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/lisa_block_difference_32_50_70}
+		\caption{Video Lisa with $n\_tiles = 32$, $t_1 = 50\%$ and $t_2 = 70\%$}
+		\label{fig:block_difference:graph:lisa_32_50_70}
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/monito_block_difference_8_90_80} 
+		\caption{Video Cartoon with $n\_tiles = 8$, $t_1 = 90\%$ and $t_2 = 80\%$}
+		\label{fig:block_difference:graph:cartoon_8_90_80} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/monito_block_difference_16_90_90}
+		\caption{Video Cartoon with $n\_tiles = 16$, $t_1 = 90\%$ and $t_2 = 90\%$}
+		\label{fig:block_difference:graph:cartoon_16_90_90}
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/news_block_difference_8_90_70} 
+		\caption{Video News with $n\_tiles = 8$, $t_1 = 90\%$ and $t_2 = 70\%$}
+		\label{fig:block_difference:graph:news_8_90_70} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/news_block_difference_16_90_70}
+		\caption{Video News with $n\_tiles = 16$, $t_1 = 90\%$ and $t_2 = 70\%$}
+		\label{fig:block_difference:graph:news_16_90_70}
+	\end{subfigure}
+
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/umn_block_difference_8_40_18} 
+		\caption{Video Umn with $n\_tiles = 8$, $t_1 = 40\%$ and $t_2 = 18\%$}
+		\label{fig:block_difference:graph:umn_8_40_18} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/block_difference/graph/umn_block_difference_16_40_18}
+		\caption{Video Umn with $n\_tiles = 16$, $t_1 = 40\%$ and $t_2 = 18\%$}
+		\label{fig:block_difference:graph:umn_16_40_18}
+	\end{subfigure}
+	
+	
+	\caption{Resulting graphs from the application of the block difference process. The x axis shows the frames and the y axis show the metric difference used to categorize whether or not a frame is a change of shot.}
+	\label{fig:block_difference:graph}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/auto_block_difference_8_90_60} 
+		\caption{Video Car with $n\_tiles~=~8$, $t_1~=~90\%$ and $t_2~=~60\%$}
+		\label{fig:block_difference:resumen:auto_8_90_60} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/auto_block_difference_16_90_60}
+		\caption{Video Car with $n\_tiles~=~16$, $t_1~=~90\%$ and $t_2~=~60\%$}
+		\label{fig:block_difference:resumen:car_16_90_60}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/lisa_block_difference_8_90_70} 
+		\caption{Video Lisa with $n\_tiles~=~8$, $t_1~=~90\%$ and $t_2~=~70\%$}
+		\label{fig:block_difference:resumen:lisa_8_90_70} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/lisa_block_difference_32_50_70}
+		\caption{Video Lisa with $n\_tiles~=~32$, $t_1~=~50\%$ and $t_2~=~70\%$}
+		\label{fig:block_difference:resumen:lisa_32_50_70}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/monito_block_difference_8_90_80} 
+		\caption{Video Cartoon with $n\_tiles~=~8$, $t_1~=~90\%$ and $t_2~=~80\%$}
+		\label{fig:block_difference:resumen:cartoon_8_90_80} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/monito_block_difference_16_90_90}
+		\caption{Video Cartoon with $n\_tiles~=~16$, $t_1~=~90\%$ and $t_2~=~90\%$}
+		\label{fig:block_difference:resumen:cartoon_16_90_90}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/news_block_difference_8_90_70} 
+		\caption{Video News with $n\_tiles~=~8$, $t_1~=~90\%$ and $t_2~=~70\%$}
+		\label{fig:block_difference:resumen:news_8_90_70} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/news_block_difference_16_90_70}
+		\caption{Video News with $n\_tiles~=~16$, $t_1~=~90\%$ and $t_2~=~70\%$}
+		\label{fig:block_difference:resumen:news_16_90_70}
+	\end{subfigure}
+	
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/umn_block_difference_8_40_18} 
+		\caption{Video Umn with $n\_tiles~=~8$, $t_1~=~40\%$ and $t_2~=~18\%$}
+		\label{fig:block_difference:resumen:umn_8_40_18} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/block_difference/resumen/umn_block_difference_16_40_18}
+		\caption{Video Umn with $n\_tiles~=~16$, $t_1~=~40\%$ and $t_2~=~18\%$}
+		\label{fig:block_difference:resumen:umn_16_40_18}
+	\end{subfigure}
+	
+	
+	\caption{Summaries of selected frames, in that we can see the summaries produced by the application of the Listing~\ref{list:blocks_difference_function}.}
+	\label{fig:block_difference:resumen}
+\end{figure}
+
+\begin{table}
+	\centering
+	\begin{tabular}{ | c | c | c | c | c | c | c | c | c |}
+		\hline
+		& \multicolumn{8}{|c|}{Experiments} \\ 
+		\cline{2-9}
+		& \multicolumn{4}{|c|}{I} &  \multicolumn{4}{|c|}{II} \\
+		\hline
+		Video  & $n\_tiles$ & $t_1$ & $t_2$ & Frames & $n\_tiles$ & $t_1$ & $t_2$ & Frames  \\
+		\hline
+		Car & 8 & 90\% & 60\% & 4 & 16 & 90\% & 60\% & 3 \\
+		Lisa & 8 & 90\% & 70\% & 3 & 32 & 50\% & 70\% & 11 \\
+		Cartoon & 8 & 90\% & 80\% & 14 & 16 & 90\% & 90\% & 1 \\
+		News & 8 & 90\% & 70\% & 5 & 16 & 90\% & 70\% & 4 \\
+		Umn & 8 & 40\% & 18\% & 2 & 16 & 40\% & 18\% & 2 \\
+		\hline
+	\end{tabular}
+	\caption{Summary table of the experiments performed with the videos, show the thresholds and number of frames found that satisfy the restrictions.}
+	\label{tab:table:block_difference}
+\end{table}
+
+\subsection{Histograms difference}
+%Esta tecnica hace uso de la herramienta Histograma, la cual puede ser explicado como la representacion visual de la distribucion probabilidad de cada bin de una image, donde cada bin puede ser uno o mas valores de la escala de grises. La tecnica consiste en realizar la diferencia entre los histogramas del frame actual y del frame antirior, si la suma de las diferencias (representada en la eq.~\ref{eq:histogram:difference}) es mayor que el threshold $T$, el cuadro es considerado como una transicion. Para calcular el threshold $T$ es necesario hacer uso de la eq.~\ref{eq:histogram:threshold}, donde $\mu$ es la media de todas las diferencias durante el video y $\sigma$ es la desviacion estandar de las mismas, por lo cual este metodo queda solo parametrisado a la variable $\alpha$ y al tamaño del histograma.
+This technique make use of the histogram tool, which can be explained as the visual representation of the probability distribution of each bin of an image, where each bin can be one or more gray scale values. The technique consist of making the difference between the histograms of the current frame and the previous frame, if the sum of the differences (represented in the eq.~\ref{eq:histogram:difference}) is greater than the threshold $T$, the frame is considered as a transition. To calculate the threshold $t$ it is necessary to use the eq.~\ref{eq:histogram:threshold}, where $\mu$ is the mean of all differences during the video and $\sigma$  is the standard deviation of them, so this method is only parameterized to the variable $\alpha$ and to the size of histogram.
+
+
+\begin{equation}
+\label{eq:histogram:difference}
+D_{i} = \frac{\sum_{j=1}^{nBins} | H_{i-1}(j) - H_{i}(j) |}{2}
+\end{equation}
+
+\begin{equation}
+\label{eq:histogram:threshold}
+T = \mu + \alpha\sigma
+\end{equation}
+
+%Los histogramas utilizados para esta metrica estan normalizados (Obtenidos por medio de la funcion desplegada en el Listing~\ref{list:histogram_difference:get_histogram}), por lo cual la eq.~\ref{eq:histogram:difference}, tambien esta normalizada, asi todos los resultados obtenidos varian entre $0$ y $1$.
+The histograms used for this metric are normalized (obtained by means of the function in the Listing~\ref{list:histogram_difference:get_histogram}), for the eq.~\ref{eq:histogram:difference}, is also normalized, so all results obtained vary between $0$ and $1$.
+
+
+\begin{lstlisting}[language=Python, caption=Function used to obtain the normalized histogram of an image, label=list:histogram_difference:get_histogram]
+def normalized_histogram(image, nbins):
+	if len(image.shape) == 3:
+		height, width, channels = image.shape
+	else:
+		height, width = image.shape
+		channels = 1
+	
+	histr = []
+	for i in range(channels):
+		hist = cv2.calcHist([image],[i],None,[nbins],[0,256]).flatten()
+		hist = hist/(height * width)
+		histr.append(hist)
+		
+	return np.array(histr)
+\end{lstlisting}
+
+\begin{table}[b]
+	\centering
+	\begin{tabular}{ | c | c | c | c | c | c | c |}
+		\hline
+		& \multicolumn{6}{|c|}{Experiments} \\ 
+		\cline{2-7}
+		& \multicolumn{3}{|c|}{I} &  \multicolumn{3}{|c|}{II} \\
+		\hline
+		Video  & $n\_bins$ & $\alpha$ & Frames & $n\_bins$ & $\alpha$ & Frames   \\
+		\hline
+		Car & 16 & 3 & 3 & 256 & 3 &  5 \\
+		Cartoon & 8 & 13 & 18 & 256 & 15 & 9 \\
+		Umn & 32 & 3 & 6 & 256 & 3 &  5 \\
+		\hline
+	\end{tabular}
+	\caption{Summary table of the experiments performed with the videos, show the thresholds and number of frames found that satisfy the restrictions.}
+	\label{tab:table:histogram_difference}
+\end{table}
+
+%Para este metodo se realizaron experimentos con tres videos, los cuales al igual que en los metodos anteriores fueron utilizados para poder encontrar los hiperparametros optimos que permitieran obtener de mejor forma los key frames. Los resultados finales con los hiperparametros calculados pueden ser observados en la Table~\ref{tab:table:histogram_difference}, a su ves tambien se pueden observar las difrencias graficas plasmadas en la Fig.~\ref{fig:histogram_difference:graph}, en el cual se muestra que el video Car (See Fig.~\ref{fig:histogram_difference:graph:car_16_3} and ~\ref{fig:histogram_difference:graph:car_256_3}) muestra diferencias significativas a la hora de poder ver cuales son los key frames, pero al ver los resultados de extraer esos frames, se puede observar que los frames extraidos no son tan representativos del video (See~\ref{fig:histogram_difference:resumen:car_16_3}~and~\ref{fig:histogram_difference:resumen:car_256_3}), en el caso del video Umn (See Fig.~\ref{fig:histogram_difference:graph:umn_32_3})~and~\ref{fig:histogram_difference:graph:umn_256_3}), al igual que en todos los demas videos, es necesario realizar una busqueda muy acotada de los cambios, esto debido a que todo ocurre en la misma escena, por lo cual los resultados del video sumarizado son muy pobres (See.~\ref{fig:histogram_difference:resumen:umn_256_3}~and~\ref{fig:histogram_difference:resumen:umn_32_3})). Por ultimo el video Cartoon, al ser un video muy largo y con mucha transiciones tambien muestra problemas para poder ser sumarizado, por lo cual este metodo no muestra mucha ayuda diferencia con respecto a los anteriores.
+For this method experiments were performed with three videos, which as in previous methods were used to find the optimum hyper parameters that allowed better obtaining the key frames. The final results with the calculated hyper parameters can be observed in the Table~\ref{tab:table:histogram_difference}, also we can see the graphical differences shown in Fig.~\ref{fig:histogram_difference:graph},  In which it is shown that the video Car (See Fig.~\ref{fig:histogram_difference:graph:car_16_3} and ~\ref{fig:histogram_difference:graph:car_256_3}) shown significant differences when it comes to being able to see which are the key frames, but seeing the results of extracting those frames, it can be seen that the extracted frames are not as representative of the video (See~\ref{fig:histogram_difference:resumen:car_16_3}~and~\ref{fig:histogram_difference:resumen:car_256_3}). On the other hand, the video Umn (See Fig.~\ref{fig:histogram_difference:graph:umn_32_3})~and~\ref{fig:histogram_difference:graph:umn_256_3}), as in all other method, its necessary to make a search of the changes, this because all the actions occur in the same scene, for which the results of the summarized video are very poor (See.~\ref{fig:histogram_difference:resumen:umn_256_3}~and~\ref{fig:histogram_difference:resumen:umn_32_3})). Finally the Cartoon video, being a very long video and with many transitions also shows problems to be summarized, so this method does not show much help or difference with respect to the previous ones.
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/histogram_difference/graph/auto_histogram_difference_16_3} 
+		\caption{Video Car with $n\_bins~=~16$, $\alpha~=~3$}
+		\label{fig:histogram_difference:graph:car_16_3} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/histogram_difference/graph/auto_histogram_difference_256_3} 
+		\caption{Video Car with $n\_bins~=~256$, $\alpha~=~3$}
+		\label{fig:histogram_difference:graph:car_256_3} 
+	\end{subfigure}
+
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/histogram_difference/graph/monito_histogram_difference_8_13} 
+		\caption{Video Cartoon with $n\_bins~=~8$, $\alpha~=~13$}
+		\label{fig:histogram_difference:graph:cartoon_8_13} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/histogram_difference/graph/monito_histogram_difference_256_15} 
+		\caption{Video Cartoon with $n\_bins~=~256$, $\alpha~=~15$}
+		\label{fig:histogram_difference:graph:cartoon_256_15} 
+	\end{subfigure}
+
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/histogram_difference/graph/umn_histogram_difference_32_3} 
+		\caption{Video Umn with $n\_bins~=~32$, $\alpha~=~3$}
+		\label{fig:histogram_difference:graph:umn_32_3} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/histogram_difference/graph/umn_histogram_difference_256_3} 
+		\caption{Video Umn with $n\_bins~=~256$, $\alpha~=~3$}
+		\label{fig:histogram_difference:graph:umn_256_3} 
+	\end{subfigure}
+	
+	
+	\caption{Resulting graphs from the application of the histogram difference process. The x axis shows the frames and the y axis show the metric difference used to categorize whether or not a frame is a change of shot.}
+	\label{fig:histogram_difference:graph}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/histogram_difference/resumen/auto_histogram_difference_16_3} 
+		\caption{Video Car with $n\_bins~=~16$, $\alpha~=~3$}
+		\label{fig:histogram_difference:resumen:car_16_3} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/histogram_difference/resumen/auto_histogram_difference_256_3} 
+		\caption{Video Car with $n\_bins~=~256$, $\alpha~=~3$}
+		\label{fig:histogram_difference:resumen:car_256_3} 
+	\end{subfigure}
+	
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/histogram_difference/resumen/monito_histogram_difference_8_13} 
+		\caption{Video Cartoon with $n\_bins~=~8$, $\alpha~=~13$}
+		\label{fig:histogram_difference:resumen:cartoon_8_13} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/histogram_difference/resumen/monito_histogram_difference_256_15} 
+		\caption{Video Cartoon with $n\_bins~=~256$, $\alpha~=~15$}
+		\label{fig:histogram_difference:resumen:cartoon_256_15} 
+	\end{subfigure}
+	
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/histogram_difference/resumen/umn_histogram_difference_32_3} 
+		\caption{Video Umn with $n\_bins~=~32$, $\alpha~=~3$}
+		\label{fig:histogram_difference:resumen:umn_32_3} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/histogram_difference/resumen/umn_histogram_difference_256_3} 
+		\caption{Video Umn with $n\_bins~=~256$, $\alpha~=~3$}
+		\label{fig:histogram_difference:resumen:umn_256_3} 
+	\end{subfigure}
+	
+	
+	\caption{Summaries of the selected frames as scene changes, in that you can see the summaries produced by te application of the method histogram difference.}
+	\label{fig:histogram_difference:resumen}
+\end{figure}
+
+
+\subsection{Edges difference}
+%Esta tecnica es la mas desarrollada de toads las tecnicas presentes en este trabajo, esto debido a que se basa en la diferencia entre los bordes del frame actual y el frame anterior, lo cual la vuelve un poco ms robusta al dejar de lado los valores en escala de grises y revisar la forma de los objetos para saber si existe una transicion abrupta. Para poder definir si un frame es un key frame, es necesario sacar la diferencia normalizada entre los mapas de bordes de ambos frames (See eq.~\ref{eq:edge:difference}), y contrastarlos contra un threshold $t_1$, si la diferencia es mayor, el frame actual es considerado una transicion, este proceso puede ser viso en el Listing~\ref{list:edge_diference_function}.
+
+This technique is the most advanced of all techniques presented in this work, because it is based on the differences between the edges of the current frame and the previous frame, which makes it a bit more robust when leaving out the values in gray scale and check the shape of objects to see if there is an abrupt transition. In order to define if a frame is a key frame, it is necessary to extract the normalized difference between the border map of both frames (See eq.~\ref{eq:edge:difference}), and contrast them against a threshold $t_1$, if the difference is greater, the current frame is considered a transition, this process can be seen in the Listing~\ref{list:edge_diference_function}.
+
+\begin{equation}\label{eq:edge:difference}
+ratio = \frac{\sum | edges_{n-1} - edges_{n} |}{\sum edges_{n-1} + edges_{n}}
+\end{equation}
+
+In order to obtain the edges of each frame, we used the Canny border detector, which has two hyperparameters, which for all experiment took the value of $255$ and $85$, this values are recommended by the creator of the method.
+
+\begin{lstlisting}[language=Python, caption=Function used to know if a frame is an abrupt transition, label=list:edge_diference_function]
+def shot_cut_edges(edge0_sum, edge1_sum, threshold):
+	ratio = 0
+	if(edge0_sum+edge1_sum != 0):
+		ratio = np.abs(edge0_sum - edge1_sum)/(edge0_sum+edge1_sum)
+	
+	if(ratio > threshold):
+		return True, ratio
+	else:
+		return False, ratio
+\end{lstlisting}
+
+%Para este metodo se realizaron experimentos con cinco videos, los cuales pueden ser observados en la Table~\ref{tab:table:edge_difference}, para los cuales el threshold $t_1$ es un valor que ronda entre el $0\%$ y el $100\%$. Los resultados graficos de estos experimentos pueden ser vistos en la Fig.~\ref{fig:edge_difference:graph}, en el cual se ve que el comportamiento de este metodo con los videos mas faciles de sumarizar es el deseado, como en las Figs.~\ref{fig:edge_difference:graph:car_10},~\ref{fig:edge_difference:graph:car_15},~\ref{fig:edge_difference:graph:lisa_30}~\ref{fig:edge_difference:graph:lisa_40},~\ref{fig:edge_difference:graph:news_8}~and~\ref{fig:edge_difference:graph:news_10}, para las cuales el metodo tiene un desempeño deseable. Por el contrario, y al igual que con los demas metodos del trabajo los videos Cartoon y Umn tienen un desempeño muy pequeño. El video cartoon al ser un video muy largo este metodo encuentra muchos falsos positivos, los cuales gracias a la metrica elegida, tienen valor uno, por lo cual para cualquier threshold elegido, estos seran catalogados como key frames. Por el contrario el video Umn al ser un video de una sola escena, es muy dificil realizar un resumne, esto debido a que los cambios abruptos son muy pocos en este tipo de videos, pero como se muestra en las Figs.~\ref{fig:edge_difference:resumen:umn_3}~and~\ref{fig:edge_difference:resumen:umn_5}, la sumarization es buena con valores de $t_1$ muy pequeños.
+For this method, experiments were performed with five videos, which can be observed in the Table~\ref{tab:table:edge_difference}, for which the threshold $t_1$ is a value that is between  $0\%$ and $100\%$. The graphical results of these experiments can be seen in Fig.~\ref{fig:edge_difference:graph}, in which it is seen that the behavior of this method with the videos easier to summarize is the desired one (See Figs.~\ref{fig:edge_difference:graph:car_10},~\ref{fig:edge_difference:graph:car_15},~\ref{fig:edge_difference:graph:lisa_30}~\ref{fig:edge_difference:graph:lisa_40},~\ref{fig:edge_difference:graph:news_8}~and~\ref{fig:edge_difference:graph:news_10}). On the contrary, and as with the other methods of work, the videos Cartoon and Umn have a very small performance. The video Cartoon being a very long video this method finds many false positives, which thanks to the chosen metric, have value one, so for any chosen threshold, these will be cataloged as key frame. On the contrary the video Umn to be a video of a single scene, it is very difficult to make a summary, this because the abrupt changes are very few in this type of videos, but as shown in Figs.~\ref{fig:edge_difference:resumen:umn_3}~and~\ref{fig:edge_difference:resumen:umn_5}, summarization is good with very small $t_1$ values.
+
+
+%En conclusion, este metodo es mejor que los demas, debido a que deja de utilizar las intensidades de los pixeles para tomar las deciciones de cuando un frame es una transicion abrupta, pero a su vez tiene una dependencia directa a las formas de la imagen y a los detectores de bordes utilizados, los cuales tambien son algoritmos hiperparametrizados, lo cual incluye mas variables al modelo.
+In conclusion, this method is better that the others, because it stop using the intensities of the pixels to taken the decisions of when a frame is an abrupt transition, but in turn has a direct dependence on the shape of the image and the edge detectors used, which are also hyper parametrized algorithms, which includes more variables to the model.
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/auto_pixel_difference_10} 
+		\caption{Video Car with $t_1 = 10\%$}
+		\label{fig:edge_difference:resumen:car_10} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/auto_pixel_difference_15} 
+		\caption{Video Car with $t_1 = 15\%$}
+		\label{fig:edge_difference:resumen:car_15} 
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/lisa_pixel_difference_30} 
+		\caption{Video Lisa with $t_1 = 30\%$}
+		\label{fig:edge_difference:resumen:lisa_30} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/lisa_pixel_difference_40} 
+		\caption{Video Car with $t_1 = 40\%$}
+		\label{fig:edge_difference:resumen:lisa_40} 
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/news_pixel_difference_8} 
+		\caption{Video News with $t_1 = 8\%$}
+		\label{fig:edge_difference:resumen:news_8} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/news_pixel_difference_10} 
+		\caption{Video News with $t_1 = 10\%$}
+		\label{fig:edge_difference:resumen:news_10} 
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/umn_pixel_difference_3} 
+		\caption{Video Umn with $t_1 = 3\%$}
+		\label{fig:edge_difference:resumen:umn_3} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/edge_difference/resumen/umn_pixel_difference_5} 
+		\caption{Video Umn with $t_1 = 5\%$}
+		\label{fig:edge_difference:resumen:umn_5} 
+	\end{subfigure}
+	
+	\caption{Summaries of the selected frames as scene changes, in that you can see the summaries produced by te application of the method histogram difference.}
+	\label{fig:edge_difference:resumen}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/auto_pixel_difference_10} 
+		\caption{Video Car with $t_1 = 10\%$}
+		\label{fig:edge_difference:graph:car_10} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/auto_pixel_difference_15} 
+		\caption{Video Car with $t_1 = 15\%$}
+		\label{fig:edge_difference:graph:car_15} 
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/lisa_pixel_difference_30} 
+		\caption{Video Lisa with $t_1 = 30\%$}
+		\label{fig:edge_difference:graph:lisa_30} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/lisa_pixel_difference_40} 
+		\caption{Video Car with $t_1 = 40\%$}
+		\label{fig:edge_difference:graph:lisa_40} 
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/monito_pixel_difference_90} 
+		\caption{Video Cartoon with $t_1 = 90\%$}
+		\label{fig:edge_difference:graph:cartoon_90} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/monito_pixel_difference_99} 
+		\caption{Video Car with $t_1 = 99\%$}
+		\label{fig:edge_difference:graph:cartoon_99} 
+	\end{subfigure}
+
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/news_pixel_difference_8} 
+		\caption{Video News with $t_1 = 8\%$}
+		\label{fig:edge_difference:graph:news_8} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/news_pixel_difference_10} 
+		\caption{Video News with $t_1 = 10\%$}
+		\label{fig:edge_difference:graph:news_10} 
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/umn_pixel_difference_3} 
+		\caption{Video Umn with $t_1 = 3\%$}
+		\label{fig:edge_difference:graph:umn_3} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/edge_difference/graph/umn_pixel_difference_5} 
+		\caption{Video Umn with $t_1 = 5\%$}
+		\label{fig:edge_difference:graph:umn_5} 
+	\end{subfigure}
+
+\caption{Resulting graphs from the application of the edges difference process. The x axis shows the frames and the y axis show the metric difference used to categorize whether or not a frame is a change of shot.}
+\label{fig:edge_difference:graph}
+\end{figure}
+
+
+
+
+
+\begin{table}
+	\centering
+	\begin{tabular}{ | c | c | c | c | c |}
+		\hline
+		& \multicolumn{4}{|c|}{Experiments} \\ 
+		\cline{2-5}
+		& \multicolumn{2}{|c|}{I} &  \multicolumn{2}{|c|}{II} \\
+		\hline
+		Video  & $t_1$ & Frames & $t_1$ & Frames   \\
+		\hline
+		Car & 10\% & 8 & 15\% & 4  \\
+		Lisa & 30\% & 4 & 40\% & 3  \\
+		Cartoon & 90\% & 97 & 99\% & 85 \\
+		News & 8\% & 6 & 10\% & 4 \\
+		Umn & 3\% & 7 & 5\% & 1 \\
+		\hline
+	\end{tabular}
+	\caption{Summary table of the experiments performed with the videos, show the thresholds and number of frames found that satisfy the restrictions.}
+	\label{tab:table:edge_difference}
+\end{table}
+
+\section{Conclusion}
+%En general todos los metodos vistos en este trabajo funcionan bien para problemas donde las variables de entorno estan bien controladas, los tres primeros son metodos donde el calculo de los key frame esta basado en los valores de los pixeles, en cambio el ultimo metodo esta basado en los bordes presentes en cada cuadro.
+In general all methods seen in this work, have good performance for problems where the environment variables are well controlled, the first three are methods where the calculation of the key frame is based on the values of the intensity of pixels, and the last method is based on the edges present in each frame.
+
+%Todos los metodos presentados en este trabajo son metodos basicos para poder resolver el problema de video sumarization, esto se puede ver al tratar de realizar la sumarization de videos como Cartoon, el cual tienen una gran cantidad de cambios a lo largo del video tanto de tomas como de tonos dentro de la misma escena, por lo cual los metodos mas ingenuos como estos tienden a responder mal con este tipo de videos.
+
+All methods presented in this work are basic methods to solve the problem of video summarization, this can be seen when trying to perform the summarization of videos like Cartoon, which have a lot of changes throughout the video of both shots like tones within the same scene, so the more naive methods like these tend to respond poorly with this type of videos.
+
+
+%Revisando todos los experimentos con el video Umn, nos dimos cuenta que con una buena parametrizacion se puede obtener una sumarization aceptable para para videos donde siempre se tenga el mismo background, donde al haber pequeñas transiciones con metodos simples como estos se puede obtener inforamcion de lo que esta pasando, esto puede ser de mucha ayuda a los videos de vigilancia.
+
+Checking all the experiments with the video Umn, we realized that with a good parameterization, we can get an acceptable summarization for videos where we always have the same background, where having small transitions with simple method like these we can get information of what is going on, this can be very helpful to surveillance videos.
+
+%Para poder mejorar estos metodos, es necesario luego de hacer la extraccion de key frames, realizar uno pequeño post procesamiento, el cual nos permita encontrar el threshold mas optimo para cada diferencia grande encontrada en el video, lo cual podria llamarse un threshold adaptativo. Tambien proponemos la creacion de otro metodo, el cual utilice las tecnicas de background substraction mezclado con los metodos de diferencias por bordes, creemos que esto permitiria encontrar con mejor certeza los key frames del video.
+
+In order to improve these methods, it is necessary after the extraction of key frames, to perform a small post processing, which allow us to find the optimal threshold for each big difference found in the video, which could be called an adaptive threshold.
+Also we propose the creation of another method, which uses the techniques of background subtraction mixed with the method of edge differences, we believe that this would allow to find with better certainty the key frames of the video.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/photo}}]{Miguel~Rodriguez}
+	%IEEE Member: 93224316, RA: 192744. MSc Student from UNICAMP, Brazil. Computers and Telecommunications Engineer from Diego Portales University, Chile. A charismatic young boy, empathic, a history and culture lover, motivated to travel around the world and learn about different cultures we can find in our planet. 
+	
+	%The most noticed abilities are: the capacity to work as a team with people from different areas, the power to surpass problems without losing the desire and motivation to solve them, the great capacity and encouragement to learn new and interesting staffs, being this one, the best ability I earned during my college period. 
+	
+	%Very interested in keep improving the skills in labor and the academic field; always searching new technologies and new techniques and moral challenges, especially in areas like artificial intelligence. A bike lover and technologies which use renewable energy, this due to the big motivation to build a future where technology and science can pacifically coexist with nature and that way contribute to improve the life quality in society.
+%\end{IEEEbiography}
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+

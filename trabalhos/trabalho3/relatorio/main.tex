@@ -1,0 +1,935 @@
+
+\documentclass[journal]{IEEEtran}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{color}
+%\usepackage[inline]{enumitem}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{red},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=3pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=1
+}
+
+\lstset{style=mystyle}
+
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Report III}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Miguel~Rodr\'iguez,~RA:~192744,~Email:~m.rodriguezs1990@gmail.com}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{introduction to digital image processing, MO443, Teacher: H\'elio Pedrini, INSTITUTE OF COMPUTING, UNICAMP}%
+{}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+\section{Introduction}
+\label{sec:problem}
+%El objetivo de este trabajo es estudiar el comportamiento de la tecnica PCA (Análisis de componentes principales) para la compresion de informacion de una imagen.
+The objetive of this work is to study the behavior of PCA (Principal Component Analysis) technique for image compression.
+
+%El análisis de componentes principales es una formulacion matematica, comunmente usada para la reduccion de datos~\cite{Jolliffe1986}, esta tecnica estadistica permite reducir la cantidad de datos estadisticos a analizar, para poder tomar deciciones en base solo a la informacion principal presentada por las variables. PCA es una tecnica basada en los autovalores de la matriz tratada, esta tecnica permite reducir la cantidad de valores singulares de la matriz principal para asi poder reducir la cantidad de datos a ser revisados, mateniendo sustantivamente la misma cantidad de informacion de forma reducida a traves de esta tecnica. 
+The Principal Components Analysis is a mathematical formulation commonly used for data reduction~\cite{Jolliffe1986}, this stadistical technique allows to reduce the amount of stadistical information to be analyzed, to be able to make decisions based only on the main information of presented variables. PCA is a technique based on the eigenvalues of the data matrix, this technique allows to reduce the amount of eigenvalues of the main matrix so as to be able to reduce the amount of data to be revised, maintaining substantively the same amount of information of reduced form across of this technique.
+
+
+\begin{equation}
+\label{eq:svd}
+\resizebox{.44\textwidth}{!} 
+{$
+	A = U\Sigma V^T = \left[ \begin{array}{cccc} u_1 & u_2 & ... & u_n \end{array} \right]  
+	 \left[ \begin{array}{cccc} 
+	 	\sigma_1 & 0 & ... & 0 \\
+	 	0 & \sigma_2 & ... & 0 \\
+	 	\rotatebox{90}{...} &\rotatebox{90}{...} & \rotatebox{135}{...} & \rotatebox{90}{...} \\
+	 	0 & 0 & ... & \sigma_n \\
+	 \end{array} \right] 
+	\left[ \begin{array}{c} 
+		v_1^T \\
+		v_2^T \\
+		\rotatebox{90}{...} \\
+		v_n^T \\
+	\end{array} \right] 
+$}
+\end{equation}
+
+%La obtencion de los valores singulares de la matriz se hace a traves de la descomposición en valores singulares o \textit{{SVD}} cuya descomopicion es representada por la Eq.~\ref{eq:svd}, donde $\Sigma$ es una matriz cuya diagonal es representada por los valores singulares ordenados de el mayor a menor, lo cual  implica que mientras mayor sea el valor singular, mayor sera la informacion que este contenga de la matriz original. Esto significa, que si se eliminan los valores singulares con menor valor numerico, no sera mucha la informacion que se desprecie de la matriz original. Esta es la principal idea de la tecnica PCA, la cual dado un numero $k$, se eligen los $k$ mayores valores singulares, y se vuelve a reconstruir la imagen eliminando todos los damas valores singulares, la imagen resultante sera una reconstruccion aproximada de la imagen, la cual representa la informacion mas relevante de esta.
+The eigenvalues of the matrix are obtained through the Singular Value Descomposition or \textit{{SVD}} technique, whose decomposition is represented by  Eq.~\ref{eq:svd}, where  $\Sigma$ is a matrix whose diagonal is represented by singular values ordered from highest to lowest, which implies that while more greater is the singular value , more information contain of the original matrix. This means that if singular values with less numerical value are eliminated, there will not be much information that is loss from the original matrix.  This is the main idea of the PCA technique, which give a number $k$, are chosen the highest $k$ singular values, and rebuild the image by removing all the not selected singular values. The resulting image will be a aproximated reconstruction of the original image, which represents the most relevan information of this.
+
+
+
+The main objetive of this work is apply the PCA technique in images for different values of $k$, and analyze the degree of compression and the lost information of the final image.
+
+\section{Solution}
+\label{sec:solution}
+
+%Para poder realizar este trabajo, se utilizo el algoritmo propuesto para el laboratorio, el cual puede ser visto en el Listing~\ref{list:pca}, la cual recibe una imagen RGB y el valor $k$ para el cual se debe aplicar la tecnica PCA. Esta funcion aplica la funcion \textit{SVD} para cada canal, y reconstruye la nueva imagen con el $k$ ingresado. Luego de realizar esta operacion para cada canal de la imagen origina, se procede a arreglar los valores de los pixeles que luego de la operacion resultaron mayores que $255$ y menores que $0$, cuyos valores son setted en 255 y 0 respectivamente.
+
+In order to perform this work, we used the algorithm proposed for the laboratory, which can ve seen in the Listing~\ref{list:pca},which receives an \textit{RGB} image and the $k$ value for which it must be applied the \textit{PCA} technique This function applies the \textit{SVD} method for each channel, and rebuilds the new image with the $k$ entered. After to perform this operation for each channel in the original image, we proceed to fix the values of the pixels that after of the operation resulting in values greater than $255$ and less than $0$, whose values are set at $255$ and $0$ respectively.
+
+
+%Luego de reconstruir la imagen, dependiendo del $k$ seleccionado sera de la imagen original, por lo tanto para saber cuan parecida es la imagen resultante a la imagen original, es necesario calcular el error que existe entre ambas, el cual es calculado utilizando el error medio cuadratico normalizado mostrado en la Eq.~\ref{eq:nrmse}, el cual nos muestra cuan parecida es una matriz a otra en valores entre el $[0,1]$, lo cual nos permite transportar estos valores a valores porcentuales.
+After reconstructing the image, the resulting image will depend of the selected $k$, so to know how similar is the resulting image to the original, it is necessary to calculate the error that exists between both. This error es calculated using the Normalized Mean Square Error shown in Eq.~\ref{eq:nrmse}, this shows how similar is a matrix to another, resulting values between $[0,1]$, which allows us to transform these values to percentages values.
+
+\begin{lstlisting}[language=Python, caption=PCA function implemented in python, label=list:pca]
+def get_pca_image(img_in, k):
+	# Get dimensions of image
+	height, width, channels = img_in.shape
+	
+	# Create new image
+	img_out = np.empty((height, width, channels))
+	
+	# for each channel
+	for i in range(channels):
+		# Get SVD from each channel
+		U, s, V = np.linalg.svd(np.float64(img_in[:,:,i]))
+		# Create new image from each channel
+		img_out[:,:,i] = np.dot(U[:,0:k], np.dot(np.diag(s[0:k]), V[0:k,:]))
+	
+	# Normalize pixels
+	img_out[img_out > 255] = 255
+	img_out[img_out < 0] = 0
+	
+	# Change image type to uint8
+	img_out = img_out.astype('uint8')
+	
+	return img_out
+
+\end{lstlisting}
+
+
+\begin{equation}
+\label{eq:nrmse}
+	NMSE(I_1, I_2) = \sum \frac{(I_1 - I_2)^2}{I_1^2}
+\end{equation}
+
+%En paralelo con el calculo del error, tambien es necesario saber cuanta es la compresion realizada por la tecnica, por lo cual para esto calcularemos una media normalizada expresada en la Eq.~\ref{eq:size}, la cual calcula la cantidad de memoria en porcentaje que esta siendo utilizada con respecto a la cantidad original.
+In parallel with the calculation of the error, it is also necessary to know how much is the compression performed by the technique, so for this we will calculate a normalized mean expressed in the Eq.~\ref{eq:size}, which calculates the quantity of memory in percentage that is being used by resulting image with respect to the original quantity.
+
+\begin{equation}
+	\label{eq:size}
+	p = \frac{Memory~required~to~represent~I_{pca}}{Memory~required~to~represent~I_{original}}
+\end{equation}
+
+%Para el calculo de la cantidad de memoria utilizamos dos metricas, la primera es la cantidad de memoria ram utilizada por la imagen original luego de ser sometida a la tecnica \textit{SVD}, y la cantidad de memoria ram de la nueva imagen luego de descartar todos los valores singulares. La segunda metrica utilizada es el peso de las imagenes al ser guardadas y codificadas por algun metodo de compresion de imagenes (\textit{PNG}, \textit{JPG}, \textit{etc}.). Ambas metricas son calculadas por medio de la Eq.~\ref{eq:size}.
+For the calculation of the amount of memory we use two metrics, the first is the amount of ram used by the resulting image after being subjected to the technique \textit{SVD}, and the amount of ram of the new image after discard all singular values. The second metric used is the weight of the images when being saved and coded by some method of image compression (\textit{PNG}, \textit{JPG}, \textit{etc}.). Both metrics are calculated by mean of the Eq.~\ref{eq:size}.
+
+
+In order to perform a deeper experimentation on the behavior of this method on the images, we decided to perform the calculation of these metrics, for each of the possible values that can be taken from $k$ in the images to experiment.
+
+\section{Experiments}
+\label{sec:experiments}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/originals/baboon256x256} 
+		\caption{Baboon}
+		\label{fig:originals:baboon} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/originals/peppers} 
+		\caption{Peppers}
+		\label{fig:originals:peppers} 
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.465\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/originals/leon}
+		\caption{Lion}
+		\label{fig:originals:lion}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/originals/monalisa256x256}
+		\caption{Monalisa}
+		\label{fig:originals:monalisa}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/originals/rage_me500x500}
+		\caption{Rage me}
+		\label{fig:originals:rage_me}
+	\end{subfigure}
+	
+	\caption{Original images used into experiments.}
+	\label{fig:img:originals}
+\end{figure}
+
+
+
+
+%En esta seccion mostraremos los experimentos realizados en este trabajo, para ver el desempeño de la tecnica PCA, para esto utilizamos cinco imagenes distintas, con distintos tamaños y distintos formatos (\textit{PNG} y \textit{JPG}), las cuales son mostradas en la Fig.~\ref{fig:img:originals}. Para la Fig.~\ref{fig:originals:baboon}, se realizaron dos experimentos, una donde la imagen es de tamaño $256\times 256$ y otra de tamaño $512\times 512$, asi mismo a la Fig.~\ref{fig:originals:rage_me}, se utilizo una version de la imagen en \textit{PNG} y otra \textit{JPG}.
+In this section we will show the experiments performed in this work, to see the performance of the PCA technique, for this we use five different images, with different sizes and different formats (\textit{PNG}~and~\textit{JPG}), which are shown in Fig.~\ref{fig:img:originals}. For Fig.~\ref{fig:originals:baboon}, two experiments were performed, both with the same image but different sizes ( $256\times 256$~and~$512\times 512$). Similarly in Fig.~\ref{fig:originals:rage_me}, we use two versions of this, one in  \textit{PNG} format and another with \textit{JPG}.
+
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/baboon256x256_graphic} 
+		\caption{Graphic of Baboon $256\times 256$}
+		\label{fig:graphic:baboon256} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/baboon512x512_graphic}
+		\caption{Graphic of Baboon $512\times 512$}
+		\label{fig:graphic:baboon512}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/leon_graphic} 
+		\caption{Graphic of Lion}
+		\label{fig:graphic:lion} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/peppers_graphic} 
+		\caption{Graphic of Peppers}
+		\label{fig:graphic:peppers} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/monalisa256x256_graphic}
+		\caption{Graphic of Monalisa}
+		\label{fig:graphic:monalisa}
+	\end{subfigure}
+	
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/rage_me500x500_graphic_jpg} 
+		\caption{Graphic of rage me in \textit{JPG}}
+		\label{fig:graphic:rage_me_jpg} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{images/graphics/rage_me500x500_graphic_png}
+		\caption{Graphic of rage me in \textit{PNG}}
+		\label{fig:graphic:rage_me_png}
+	\end{subfigure}
+	
+	
+	\caption{PCA graphics. The blue line represent the error proposed in Eq.~\ref{eq:nrmse}, the red line is rate of used bytes in original and final images, and the green line represent the rate of used bytes in memory for  \textit{SVD} representation in original and final images.}
+	\label{fig:graphics}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/baboon256x256_1} 
+		\caption{Baboon $256\times 256$, $k=1$}
+		\label{fig:outputs:baboon256_1} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/baboon512x512_1}
+		\caption{Baboon $512\times 512$, $k=1$}
+		\label{fig:outputs:baboon512_1}
+	\end{subfigure}
+	
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/baboon256x256_10} 
+		\caption{Baboon $256\times 256$, $k=10$}
+		\label{fig:outputs:baboon256_10} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/baboon512x512_26}
+		\caption{Baboon $512\times 512$, $k=26$}
+		\label{fig:outputs:baboon512_26}
+	\end{subfigure}	
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/baboon256x256_98} 
+		\caption{Baboon $256\times 256$, $k=98$}
+		\label{fig:outputs:baboon256_98} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/baboon512x512_196}
+		\caption{Baboon $512\times 512$, $k=196$}
+		\label{fig:outputs:baboon512_196}
+	\end{subfigure}	
+	
+	
+	\caption{PCA baboon's images. On the left display the result of applying PCA in Fig.~\ref{fig:originals:baboon} with size $256\times 256$ and to the right the results of applying PCA in Fig.~\ref{fig:originals:baboon} with size $512\times 512$}
+	\label{fig:outputs:baboon}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/leon_1} 
+		\caption{Lion, $k=1$}
+		\label{fig:outputs:lion_1} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/leon_8} 
+		\caption{Lion, $k=8$}
+		\label{fig:outputs:lion_8} 
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/leon_100} 
+		\caption{Lion, $k=100$}
+		\label{fig:outputs:lion_100} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/leon_163} 
+		\caption{Lion, $k=163$}
+		\label{fig:outputs:lion_163} 
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/leon_253} 
+		\caption{Lion, $k=253$}
+		\label{fig:outputs:lion_253} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/leon_432} 
+		\caption{Lion, $k=432$}
+		\label{fig:outputs:lion_432} 
+	\end{subfigure}
+	
+	\caption{PCA Lion's images. The Fig.~\ref{fig:outputs:lion_8}, with $k=8$, is where the intersection between the error and the size ratio of files occur. The Fig~\ref{fig:outputs:lion_163} with $k=163$ is the result of the intersection of the error with the size ratio used in memory.}
+	\label{fig:outputs:lion}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/peppers_1} 
+		\caption{Peppers, $k=1$}
+		\label{fig:outputs:peppers_1} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/peppers_11} 
+		\caption{Peppers, $k=11$}
+		\label{fig:outputs:peppers_11} 
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/peppers_50} 
+		\caption{Peppers, $k=50$}
+		\label{fig:outputs:peppers_50} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/peppers_103} 
+		\caption{Peppers, $k=103$}
+		\label{fig:outputs:peppers_103} 
+	\end{subfigure}
+	
+	
+	\caption{PCA Peppers's images. The Fig.~\ref{fig:outputs:peppers_11}, with $k=11$, is where the intersection between the error and the size ratio of files occur. The Fig~\ref{fig:outputs:peppers_103} with $k=103$ is the result of the intersection of the error with the size ratio used in memory.}
+	\label{fig:outputs:peppers}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/monalisa256x256_1} 
+		\caption{Monalisa, $k=1$}
+		\label{fig:outputs:monalisa_1} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/monalisa256x256_3} 
+		\caption{Monalisa, $k=3$}
+		\label{fig:outputs:monalisa_3} 
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/monalisa256x256_20} 
+		\caption{Monalisa, $k=20$}
+		\label{fig:outputs:monalisa_20} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{images/outputs/monalisa256x256_49} 
+		\caption{Monalisa, $k=49$}
+		\label{fig:outputs:monalisa_49} 
+	\end{subfigure}
+	
+	
+	\caption{PCA Monalisa's images. The Fig.~\ref{fig:outputs:monalisa_3}, with $k=3$, is where the intersection between the error and the size ratio of files occur. The Fig~\ref{fig:outputs:monalisa_49} with $k=49$ is the result of the intersection of the error with the size ratio used in memory.}
+	\label{fig:outputs:monalisa}
+\end{figure}
+
+
+
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/rage_me500x500_1.jpg} 
+		\caption{Rage me \textit{JPG}, $k=1$}
+		\label{fig:outputs:rage_me_jpg_1} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/rage_me500x500_1.png}
+		\caption{Rage me \textit{PNG}, $k=1$}
+		\label{fig:outputs:rage_me_png_1}
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/rage_me500x500_2.jpg} 
+		\caption{Rage me \textit{JPG}, $k=2$}
+		\label{fig:outputs:rage_me_jpg_2} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/rage_me500x500_4.png}
+		\caption{Rage me \textit{PNG}, $k=4$}
+		\label{fig:outputs:rage_me_png_4}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/rage_me500x500_58.jpg} 
+		\caption{Rage me \textit{JPG}, $k=58$}
+		\label{fig:outputs:rage_me_jpg_58} 
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.23\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/outputs/rage_me500x500_58.png}
+		\caption{Rage me \textit{PNG}, $k=58$}
+		\label{fig:outputs:rage_me_png_58}
+	\end{subfigure}
+	
+	
+	\caption{PCA Rage me's images. On the left are shown the reslts of applying PCA in Fig.~\ref{fig:originals:rage_me} with \textit{JPG} format, and to the right are shown the results of applying PCA in Fig.~\ref{fig:originals:rage_me} with \textit{PNG} format.}
+	\label{fig:outputs:rage_me}
+\end{figure}
+
+
+
+The graphs show in Fig.~\ref{fig:graphics}, how the relation between the Eq.~\ref{eq:nrmse} and the two applications of the Eq.~\ref{eq:size}, for each possible value of $k$ in the image. In the graphs it can be seen that the error is inversely proportional to the relation of the sizes as the value of $k$ increases. It can also be observed that there are two point of intersection in the error.
+
+%El primer experimento realizado se utilizo la Fig.~\ref{fig:originals:baboon}, en dos versiones de distintos tamaños $256\times 256$ y $512\times 512$ ambas en formato \textit{PNG}. Como se puede observar en la Fig.~\ref{fig:outputs:baboon}, mientras mayor sea el numero de $k$, mayor informacion contendra la imagen resultante del proceso PCA. 
+%En los graficos mostrados en las Figs.~\ref{fig:graphic:baboon256}~and~\ref{fig:graphic:baboon512}, se puede ver que existen dos puntos de interseccion para la curva de error, la primera es la interseccion con la curva de relacion de temaño del archivo, la cual esta representada en $k=10$ y $k=26$ respectivamente, si se ven las Figs.~\ref{fig:outputs:baboon256_10}~and~\ref{fig:outputs:baboon512_26}, se puede observar que imagen resultante para esos valores de $k$ contiene bastante informacion visual, por lo cual se podria decir que ya es una imagen aceptable. La segunda interseccion de la curva de error es con la curva de la relacion de la memoria utilizada, la cual es en $k=98$~and~$k=196$ respectivamente, cuyas imagenes estan representadas en las Figs.~\ref{fig:outputs:baboon256_98}~and~\ref{fig:outputs:baboon512_196}, las cuales al ser analizadas casi no tienen diferencia visual con respecto a la imagen original, siendo el error menor al 40\% la imagen las imagenes resultantes tienen resultados bastante aceptables. 
+%En los graficos tambien se puede observar que la relacion de los tamaños de los archivos luego de un cierto $k$ sobrepasa el 100\%, por lo cual se puede decir que para esos $k$, el archivo de salida PCA, tiene un mayor tamaño en bytes que el archivo original, esto debido a la codificacion utilizada para guardarlo.
+
+The first experiment was used Fig.~\ref{fig:originals:baboon}, in two versions with different sizes ($256\times 256$~and~$512\times 512$), both in \textit{PNG} format. As can be seen in Fig.~\ref{fig:outputs:baboon}, while greater is the value of $k$, more information contain the image resulting from PCA process. 
+In the graphs shown in Figs.~\ref{fig:graphic:baboon256}~and~\ref{fig:graphic:baboon512}, we can see that there are two intersection points for the error curve. Intersection with the file relation curve, which is represented in $k=10$ and $k=26$ respectively, On the another hand, if we can observe the Figs.~\ref{fig:outputs:baboon256_10}~and~\ref{fig:outputs:baboon512_26}, we can see the resultant image for those values of $k$ contains enough visual information, so we could say that it is an acceptable image. The second  intersection of the error curve is with the curve of the memory relation used, which is $k=98$~and~$k=196$, respectively, whose images are represented in Figs.~\ref{fig:outputs:baboon256_98}~and~\ref{fig:outputs:baboon512_196}, which when analyzed have almost no visual difference with repect to the original image, being the error less that 40\%, the resulting image have quite acceptable results.
+In the graphs it can also be seen that the relation of file size after certain $k$ exceeds 100\%, so it can be said that for those $k$, the output file PCA has a larger size in bytes that the original file, due to the encoding used to save it.
+
+
+
+
+%El segundo experimento se realizo utilizando una imagen en formato \textit{JPG}, la cual puede ser observada en la Fig.~\ref{fig:originals:lion}. 
+%El grafico resultante de este experimento puede ser visualizado en la Fig.~\ref{fig:graphic:lion}, el cual tiene un comportamiento muy particular, tanto en la relacion existente en los archivos de salida como en la cantidad de memoria utilizada. 
+%Como se puede visualizar en la linea roja (la cual representa la relacion de los archivos de salida) logra tomar valores cercanos al 175\% para algunos $k$, luego esto baja y se normaliza en valores cercanos al 160\%, con lo cual se puede observar que la codificacion de la imagen resultante al proceso PCA es un caso donde el proceso de codificacion \textit{JPG} se comporta peor que con la imagen original. 
+%Por otro lado la linea verde (la cual representa la relacion de la cantidad de memoria utilizada por las imagenes), esta no tiene el mismo comportamiento que los otros experimentos, esto debido que al llegar al ultimo valor posible de $k$, el valor de la relacion no se aproxima a uno, sino que se aproxima a 0.7, con lo cual se podria decir que la cantidad de memoria que se utiliza para representar esta imagen despues del proceso de PCA es menor que la cantidad de memoria utilizada por la imagen original. 
+
+The second experiment was performed using an image in \textit{JPG} format, which can be seen in Fig.~\ref{fig:originals:lion}. The resulting graph from this experiment can be visualized in Fig.~\ref{fig:graphic:lion}, which has a very particular behavior, both in the relation existing in the output files and in the amount of memory used.
+As it can be visualized on the red line (which represent the relation of the output files) it can take values close to 175\% for some values of $k$ , then it drop and normalizes in values close to 160\%, with wchich can be seen that the coding of the resulting image to the PCA process is a case where the \textit{JPG} encoding process have worse behaviors than with the original image.
+On the other hand the green line (which represent the relation of the amount of memory used by the images), this does not have the same behavior as the other experiments, this due to the arrival at the last possible value of $k$, the value of the relation does not approximate to one, but it does approximate to 0.7, which could be said that the amount of memory that is used to represent this image after PCA process is less that the amount of memory used by the original image.
+
+%El tercer experimento fue realizado utilizando la Fig.~\ref{fig:originals:peppers}, la cual esta en formato \textit{PNG}.
+%El grafico resultante de este experimento puede ser observado en la Fig.~\ref{fig:graphic:peppers}, en la cual se puede ver el comportamiento ideal y esperado para esta tecnica, donde la relacion de los tamaños de los archivos al llegar al $k$ maximo, es igual a 1 y la relacion de la memoria utilizada tambien.
+%En la Fig.~\ref{fig:outputs:peppers}, se puede observar las imagenes resultantes para distintos valores de $k$, los cuales con $k=1$ (See Fig.~\ref{fig:outputs:peppers_1}) no se puede observar nada de informacion util, con $k=11$ (See Fig.~\ref{fig:outputs:peppers_11}) se puede observar ya la forma general del contenido de la imagen, este valor de $k$, es donde se intersectan las curvas de error y la relacion entre los archivos. Para $k=103$ (See Fig.~\ref{fig:outputs:peppers_103}) es donde se intersectan las curvas de error y la relacion entre la memoria utilizada, la imagen que se ve es muy nitida y parece mucho a la original, pero para valores menores de $k$ tambien se puede lograr una nitidez aceptable, eg. en la Fig.~\ref{fig:outputs:peppers_50}, la cual muestra una imagen muy aceptable que puede ser comparada con la original y no tener mucha diferencia.
+The third experiment was performed using Fig.~\ref{fig:originals:peppers}, which it is in \textit{PNG} format.
+The resulting graph from this experiment can be observed in Fig.~\ref{fig:graphic:peppers}, in which we can see the ideal and expected behavior for this technique, where the ratio of the file sizes on arrival  to $k$ max, is equa to 1 and the memory ratio used as well.
+In Fig.~\ref{fig:outputs:peppers}, we can observe the resulting images for different values of $k$. With $k=1$ (See Fig.~\ref{fig:outputs:peppers_1}) we can not observe any useful information, with $k=11$ (See Fig.~\ref{fig:outputs:peppers_11}) we can already observe the general form of the image content, this value of $k$, is where the error curve and the ratio between the files are intersected.
+For  $k=103$ (See Fig.~\ref{fig:outputs:peppers_103}) is where the error curve intersect with the ratio between the memory used by images, the image that is seen is very clear and ooks much like the original, but for values less than $k$, an acceptable clearness can also achieved, eg. In Fig.~\ref{fig:outputs:peppers_50}, we can see a very acceptable image that can be compared with the original and does not make much difference.
+
+
+%El cuarto experimento fue realizado en una imagen de formato \textit{PNG}, la cual puede ser visualizada en la Fig.~\ref{fig:originals:monalisa}.
+%El grafico resultante de este experimento puede ser observado en la Fig.~\ref{fig:graphic:monalisa}, en el cual se puede ver que el comportamiento de esta imagen es muy parecido al experimento anterior, pero la curva de la relacion de los tamaños de los archivos despues de un cierto $k$, se vuelve mayor que uno, por lo cual la codificacion \textit{PNG} hace que la imagen al ser guardada tenga un mayor tamaño que la imagen original, el comportamiento de las demas curvas es el esperado. En las Fig.~\ref{fig:outputs:monalisa} se puede ver las salidas para distintos $k$, siendo $k=3$ y $k=49$ (See Figs.~\ref{fig:outputs:monalisa_3}~and~\ref{fig:outputs:monalisa_49})) las intersecciones de las curvas de error con las relaciones de los archivos y la memoria utilziada respectivamente.
+The fourth experiment was performed in a image with \textit{PNG} format, which can be visualized in Fig.~\ref{fig:originals:monalisa}.
+The graph resulting from this experiment can be seen in Fig.~\ref{fig:graphic:monalisa}, in which it can be seen that the behavior of this image is very similar to the previous experiment, but the curve of the relation of the file sizes after a certain $k$ becomes greater than one, so the encoding \textit{PNG} makes the image to be saved has a more size than the original image, the behavior of the others curves is the expected.
+In Fig.~\ref{fig:outputs:monalisa} we can see the outputs for different values of $k$ where $k=3$ and $k=49$ (See Figs.~\ref{fig:outputs:monalisa_3}~and~\ref{fig:outputs:monalisa_49})) are intersections of the error curves with the ratio of the files and the memory used respectively.
+
+
+
+
+%En el quinto y ultimo experimento se realizo utilizando la imagen mostrada en la Fig.~\ref{fig:originals:rage_me}. Para este experimento se realizo con la misma imagen en dos formatos distintos (\textit{PNG}~and~\textit{JPG}).
+%Los resultados de estos experimentos pueden ser vistos en los graficos desplegados en las Figs.~\ref{fig:graphic:rage_me_jpg}~and~\ref{fig:graphic:rage_me_png}, en los cuales se puede observar que las curvas tienen un comportamiento muy parecido al mostrado en los experimentos anteriores, donde la curva de relacion entre los archivos de salda para ciertos $k$ supera el valor uno, por lo cual el archivo nuevo es de mayor peso que el original. Al igual que en el tercer experimento, el cual tambien fue realizado con una imagen en formato \textit{JPG}, la curva de relacion de los tamaños de los archivos, experimento un crecimiento y posteriormente un decreciemiento, el cual al parecer es caracteristico de las figuras en este formato.
+%En la Fig.~\ref{fig:outputs:rage_me} se puede ver el resultado de aplicar la tecnica PCA para distintos valores de $k$ en ambos formatos. La interseccion entre las curvas de error y la relacion entre el tamaños de los archivos puede ser visualizada en $k=2$ en la imagen con formato \textit{JPG} (See Fig.~\ref{fig:outputs:rage_me_jpg_2}) y $k=4$ en \textit{PNG} (See Fig.~\ref{fig:outputs:rage_me_png_4}), donde se puede observar en las imagenes que algo de informacion de la imagen original puede ser vizualisada. Asi mismo, en ambos formatos para $k=58$ se produce la interseccion entre las curvas de error y la curva de relacion de la memoria utilizada, donde se puede visualizar que la imagen obtenida tiene la mayor parte de la informacion relevante de la imagen original.
+
+In the fifth and last experiment we performed using the image shown in Fig.~\ref{fig:originals:rage_me}. For this experiment we use the same image in two different formats (\textit{PNG}~and~\textit{JPG}).
+The results of these experiments can be seen in the graphs shown in Figs.~\ref{fig:graphic:rage_me_jpg}~and~\ref{fig:graphic:rage_me_png}, in which we can be seen that the curves have a behavior very similar to that shown in the previous experiments, where the relationship between the output files for certain values of $k$ exceeds the value one, so the new file is of greater weight that the original.
+As in the third experiment, which was also donde with an image in \textit{JPG} format, the curve of relation of the sizes of the files experienced a growth and then a decrease, which apparently is characteristic of the figures in this format.
+In Fig.~\ref{fig:outputs:rage_me} we can see the result of applying the PCA technique for different values of $k$ in both formats. The intersection between error curve and the ratio between file sizes can be visualized in  $k=2$ (Image in \textit{JPG} format, see Fig.~\ref{fig:outputs:rage_me_jpg_2}), and in $k=4$ (image in \textit{PNG} format, see Fig.~\ref{fig:outputs:rage_me_png_4}), where it can be observed in the images that some information of the original image can be visualized. Also, in both formats for $k=58$, there is an intersection between the error curves and the rate curve of the used memory, where it can be seen that the obtained image has the most relevant information of the original image.
+
+
+\section{Conclusion}
+
+%La tecnica PCA es una tecnica matematica poderosa para poder realizar una reduccion de la informacion que se tiene sobre ceirto fenomeno, en el caso de las imagenes, al aplicar esta tecnica en la compresion de datos como se observo en los experimentos realizados (See Section~\ref{sec:experiments}), se puede concluir que no es una tecnica completa, esto debido a que se debe mejorar para poder obtener una compresion mejor.
+The PCA is a powerful mathematical technique to be able to make a reduction of the information about a certain phenomenon, in the case of the images when applying this technique in data compression, as observed in the experiments performed (See Section~\ref{sec:experiments}), we can conclude that it is not a complete technique, because it must be improved in order to obtain a better compression.
+
+
+%Con respecto al tamaño de las imagenes, la tecnica tiene un comportamiento muy parecido para imagenes que muestran la misma informacion visual, pero tienen distintos tamaños. Asi puede ser visto en el primer experimento (See Fig.~\ref{fig:graphic:baboon256}~and~\ref{fig:graphic:baboon512}), donde los graficos resultantes de la aplicacion de la tecnica a ambas imagenes resultaron ser muy parecidos.
+Regarding the size of the images, the technique has a very similar behavior for images that show the same visual information, but they have different sizes. Thus it can be seen in the first experiment (See Fig.~\ref{fig:graphic:baboon256}~and~\ref{fig:graphic:baboon512}), where the graphics resulting from the application of the technique to both images resulted be very similar.
+
+
+%La tecnica tiene un comportamiento muy estable con imagenes que son guardadas en archivos en formato \textit{PNG}, no asi con las imagenes que son guardadas en formato \textit{JPG}, esto debido a que la relacion de los tamaños de los archivos tiene variaciones muy intestables para este formato.
+The technique has a very stable behavior with images that are stored in files in  \textit{PNG} format, not so with the images that are saved in \textit{JPG} format, this because the relation of the sizes of files has very unstable variations for this format.
+
+
+%A su vez si se analiza el comportamiento de la tecnica para una misma imagen pero guardada en formatos distintos (\textit{PNG}~and~\textit{JPG}), se puede observar que el comportamiento de la compresion es muy parecido, pero que el formato \textit{JPG} tiene distitntas variaciones intestables.
+In turn, if the behavior of technique is analyzed for the same image but stored in different formats (\textit{PNG}~and~\textit{JPG}), we can see that the behavior of the compression is very similar, but that the \textit{JPG} images has unstable variations.
+
+
+%Con respecto a la eleccion del valor de $k$, creemos que la eleccion de este valor debe ser un valor que tenga un error menor al 75\%, y que este entre el conjunto de valores que estan entre la interseccion del error con ambas relaciones, esto debido a que como se vio en todos los experimentos, la imagen resultante de la interseccion la relacion de tamaños de los archivos con el error, es una imagen que muestra las principales caracteristicas de la imagen original, pero no se logra ver visualmente identica con respecto a la original. Por el contrario la imagen resultante de la interseccion entre el error y la relacion de la utilizacion de memoria, es una imagen muy nitida y muy parecida a la original, por lo tanto proponemos que la eleccion del valor $k$ debe estar entre estos dos dependiendo del grado de error que se requiera en la imagen.
+With respect to the choice of the value of $k$, we believe that the choice of this value must be a value that has an error smaller than 75\%, and that it is among the set of values that are between the intersection of the error with both rates, this because it was seen in all experiments, the images resultant of the intersection the rates of the file size with the error, is an image that show the main features of the original image, but is not able to see visually identical with respect to original image. 
+On the contrary, the image resulting from the intersection between the error and the rate of memory is a very clear image and very similar to the original one, therefore, we propose that the choice of the value $k$ should be between these two, depending on the degree of error that is required in the image. It should be emphasized that all images in this range have a rate of file size smaller than one, so it is a compressed images.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/photo}}]{Miguel~Rodriguez}
+	%IEEE Member: 93224316, RA: 192744. MSc Student from UNICAMP, Brazil. Computers and Telecommunications Engineer from Diego Portales University, Chile. A charismatic young boy, empathic, a history and culture lover, motivated to travel around the world and learn about different cultures we can find in our planet. 
+	
+	%The most noticed abilities are: the capacity to work as a team with people from different areas, the power to surpass problems without losing the desire and motivation to solve them, the great capacity and encouragement to learn new and interesting staffs, being this one, the best ability I earned during my college period. 
+	
+	%Very interested in keep improving the skills in labor and the academic field; always searching new technologies and new techniques and moral challenges, especially in areas like artificial intelligence. A bike lover and technologies which use renewable energy, this due to the big motivation to build a future where technology and science can pacifically coexist with nature and that way contribute to improve the life quality in society.
+%\end{IEEEbiography}
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+

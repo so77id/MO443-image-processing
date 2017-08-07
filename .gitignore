@@ -1,0 +1,11 @@
+images
+videos
+outputs
+graphics
+.vscode
+
+*.aux
+*.bbl
+*.blg
+*.log
+*.synctex.gz

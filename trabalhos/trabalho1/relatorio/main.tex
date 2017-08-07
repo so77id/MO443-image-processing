@@ -1,0 +1,919 @@
+
+\documentclass[journal]{IEEEtran}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage[inline]{enumitem}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{red},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=3pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=1
+}
+
+\lstset{style=mystyle}
+
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Report I}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Miguel~Rodr\'iguez,~RA:~192744,~Email:~m.rodriguezs1990@gmail.com}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{introduction to digital image processing, MO443, Teacher: H\'elio Pedrini, INSTITUTE OF COMPUTING, UNICAMP}%
+{}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+\section{Problem}
+\label{sec:sec_1}
+The objective of this work is to perform some basic digital image processing
+
+\subsection{Image comparison}
+it's necessary calculate distance between two images, for this, must use the metric of euclidean distance between the normalized histograms of each image. This exercise must be carried out using different numbers of bins for the construction of the histogram eg. 4, 8, 32, 128, 256, etc.
+
+\subsection{Bit plane spliting and Entropy}
+
+This section is divided into two tasks:
+
+\subsubsection{Bit plane spliting}
+\label{sec:bit-plane-slicing}
+Extract the bit planes of a grayscale image, compare the images obtained and explain the results.
+\subsubsection{Entropy}
+From the images obtained in \ref{sec:bit-plane-slicing}, calculate the entropy using eq.~\ref{eq:entropy}
+
+\begin{equation}
+\label{eq:entropy}
+H =   -\sum_{n=0}^{L-1} p_i~log_2~p_i
+\end{equation}
+
+Where $L$ is the number of intensities of the imagen $I$, and $p_i$ is the probability of a pixel to assume that intensity, The probability calculation is given by eq.~\ref{eq:probability}
+
+\begin{equation}
+\label{eq:probability}
+p_i =  \frac{n_i}{n}
+\end{equation}
+
+Where $ n_i $ is the frequency of appearance of that pixel in the image $ I $, and $ n $ is the number of pixels in the image.
+
+\section{Solution}
+
+\subsection{Image comparison}
+
+In the world of image processing, computer vision and other areas that work with images, there is a very common problem. which is the comparison between images.This is a problem that does not have a definitive solution, since the solution to the problem will depend on many variables, such as the type of images to be compared, the problem to solve, the sensor that acquired the image, etc.
+
+For this work we are going to try with a naive solution, which consists in making a comparison using euclidean distance between the normalized histograms of the images.
+
+before explaining how the problem was solved, it is necessary to have certain clear concepts such as: \textbf{histogram}, \textbf{histogram normalization}, \textbf{algebraic distance}, \textbf{descriptor}.
+
+\begin{enumerate}
+	\item \textbf{Histogram}: it's a graphical representation of the relative frequency of all values taken by pixels in an image $I$, these are grouped in bins, while the greater is number of bins better will be the histograms accuracy. In Listing~\ref{list:histogram_function} can see a simple implementation of the algorithm to obtain the histogram of an image.
+	
+	\begin{lstlisting}[language=Python, caption=Histogram function, label=list:histogram_function]
+	def histogram(image):
+		hist = np.zeros(256)
+		height, width = image.shape
+		
+		for y in range(0, width):
+			for x in range(0, height):
+				hist[image[y][x]] = hist[image[y][x]] + 1
+		return hist
+	\end{lstlisting}
+	
+	
+	\item \textbf{Histogram normalization}: To compare different histogram of images, must be very careful with amount of pixels that each image has, because if the images have different amounts, their histograms can't be compared, by caused of they have different possible max values. To solve this problem, we use normalization, which allows us to transform histograms to comparable space. This normalization is done by dividing each of the frequencies by $N\times M$, being $N$ and $M$ the height and width of image $I$. After normalization, all frequencies will have values that vary into range $[0-1]$, which allows to compare two images because both image have the same possible max value. The value of each normalized bin of histogram represent the probability of occurrence this bin in the image.
+	
+	\item \textbf{Algebraic distance}: Is a metric that allows to know how different or similar are two vectors or matrices, there are many types of distances and each distance is used for different cases depending on the problem that needs to be solved. In this case we will use the Euclidean distance, which is given by the eq.~\ref{eq:euclidiana}, where $P$ and $Q$ are the vectorial representation of the normalized histograms of images.
+	\begin{equation}
+	\label{eq:euclidiana}
+	d_2(P, Q) = \sqrt{\sum_{i}^{n} (p_i - q_i)^{2}}
+	\end{equation}
+	
+	\item \textbf{Descriptor}: Is a vector representative of features of an image $I$, which is the conversion of $I$ to a vector space. The descriptors describe fundamental features of images, such as color, texture or movement. its construction depends on the problem to be solved and how it is to be solved. it can also be combination of different tools of the image processing, like histogram, edges, entropy, norms, etc. Descriptors can be divided depending on the features they cover, color, texture, shape, movement or location.
+	
+\end{enumerate}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/baboon} 
+		\caption{Baboon}
+		\label{fig:baboon:original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/peppers}
+		\caption{Peppers}
+		\label{fig:peppers:original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.11\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/monalisa256x256}
+		\caption{Monalisa}
+		\label{fig:monalisa256x256:original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/photo500x500}
+		\caption{My normal photo}
+		\label{fig:photo500x500:original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/rage_me500x500}
+		\caption{My angry photo}
+		\label{fig:rage_me500x500:original}
+	\end{subfigure}
+	
+	\caption{Original images used in comparison.}
+	\label{fig:originals}
+\end{figure}
+
+After having these clear concepts, we can proceed to proposed solution, the first action was obtaining of the normalized histogram of each image in Fig~\ref{fig:originals}, for this we use the function  $cv2.calcHist$ of OpenCV library~\cite{Bradski2000}, for each channel in the images, then proceed to normalize the histograms dividing by $M \times N$. The implementation of this algorithm can be seen in $normalized\_histogram$ function in Listing~\ref{list:histogram_normlized_function}, which return an array of histograms , where each histogram belongs to each channel of image $I$. The visual representations of the histogrmas can be seen in Figs.~\ref{fig:baboon:hist},~\ref{fig:peppers:hist},~\ref{fig:monalisa256x256:hist},~\ref{fig:photo500x500:hist}~and~\ref{fig:rage_me500x500:hist}
+
+	\begin{lstlisting}[language=Python, caption=Histogram function, label=list:histogram_normlized_function]
+	def normalized_histogram(image, nbins):
+		if len(image.shape) == 3:
+			height, width, channels = image.shape
+		else:
+			height, width = image.shape
+			channels = 1
+		
+		histr = []
+		for i in range(channels):
+			hist = cv2.calcHist([image],[i],None,[nbins],[0,256]).flatten()
+			hist = hist/(height * width)
+			histr.append(hist)
+		
+		return np.array(histr)
+	\end{lstlisting}
+
+After obtaining histogram of images, we proceed to calculate the euclidean distance (eq.~\ref{eq:euclidiana}) between both images. in order to not implement this function, we use $np.linalg.norm$ function of NumPy~\cite{Walt2011}. 
+
+The implementation can be seen in Listing~\ref{list:euclidian_function}, this function calculates distance between each histogram, and then calculates the average of the distances to obtain a total distance.
+
+
+\begin{lstlisting}[language=Python, caption=Euclidean distance function, label=list:euclidian_function]
+def euclidean_distance(hist1, hist2):
+distance = 0.0
+
+if(hist1.shape == hist2.shape):
+for i in range(hist1.shape[0]):
+distance = distance + np.linalg.norm(hist1[i] - hist2[i], 2)
+distance = distance / hist1.shape[0]
+
+return distance
+\end{lstlisting}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/baboon_hist_32} 
+		\caption{32 bins}
+		\label{fig:baboon:hist:32}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/baboon_hist_128} 
+		\caption{128 bins}
+		\label{fig:baboon:hist:128}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/baboon_hist_256} 
+		\caption{256 bins}
+		\label{fig:baboon:hist:256}
+	\end{subfigure}
+	
+	\caption{Histogram of baboon (\ref{fig:baboon:original}) with different bins.}
+	\label{fig:baboon:hist}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/peppers_hist_32} 
+		\caption{32 bins}
+		\label{fig:peppers:hist:32}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/peppers_hist_128} 
+		\caption{128 bins}
+		\label{fig:peppers:hist:128}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/peppers_hist_256} 
+		\caption{256 bins}
+		\label{fig:peppers:hist:256}
+	\end{subfigure}
+	
+	\caption{Histogram of peppers (\ref{fig:peppers:original}) with different bins.}
+	\label{fig:peppers:hist}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/monalisa256x256_hist_32} 
+		\caption{32 bins}
+		\label{fig:monalisa256x256:hist:32}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/monalisa256x256_hist_128} 
+		\caption{128 bins}
+		\label{fig:monalisa256x256:hist:128}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/monalisa256x256_hist_256} 
+		\caption{256 bins}
+		\label{fig:monalisa256x256:hist:256}
+	\end{subfigure}
+	
+	\caption{Histogram of monalisa (\ref{fig:monalisa256x256:original}) with different bins.}
+	\label{fig:monalisa256x256:hist}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/photo500x500_hist_32} 
+		\caption{32 bins}
+		\label{fig:photo500x500:hist:32}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/photo500x500_hist_128} 
+		\caption{128 bins}
+		\label{fig:photo500x500:hist:128}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/photo500x500_hist_256} 
+		\caption{256 bins}
+		\label{fig:photo500x500:hist:256}
+	\end{subfigure}
+	
+	\caption{Histogram of my normal photo (\ref{fig:photo500x500:original}) with different bins.}
+	\label{fig:photo500x500:hist}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/rage_me500x500_hist_32} 
+		\caption{32 bins}
+		\label{fig:rage_me500x500:hist:32}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/rage_me500x500_hist_128} 
+		\caption{128 bins}
+		\label{fig:rage_me500x500:hist:128}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.15\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{images/rage_me500x500_hist_256} 
+		\caption{256 bins}
+		\label{fig:rage_me500x500:hist:256}
+	\end{subfigure}
+	
+	\caption{Histogram of my angry photo (\ref{fig:rage_me500x500:original}) with different bins.}
+	\label{fig:rage_me500x500:hist}
+\end{figure}
+
+\begin{table}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		& Baboon (\ref{fig:baboon:original}) & Peppers (\ref{fig:peppers:original}) & Monalisa (\ref{fig:monalisa256x256:original}) & Normal (\ref{fig:photo500x500:original}) & Angry (\ref{fig:rage_me500x500:original}) \\ \hline
+		\ref{fig:baboon:original} & 0.0 & 0.15768 & 0.15581 & 0.24549 & 0.17594 \\
+		\ref{fig:peppers:original} & 0.15768 & 0.0 & 0.18121 & 0.23447 & 0.17219 \\
+		\ref{fig:monalisa256x256:original} & 0.15581 & 0.18121 & 0.0 & 0.31762 & 0.14493 \\
+		\ref{fig:photo500x500:original} & 0.24549 & 0.23447 & 0.31762 & 0.0 & 0.31595 \\
+		\ref{fig:rage_me500x500:original} & 0.17594 & 0.17219 & 0.14493 & 0.31595 & 0.0 \\
+		\hline
+	\end{tabular}
+	\caption{Distance matrix using 32 bins}
+	\label{tab:conf_matrix:32bins}
+\end{table}
+
+\begin{table}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		& Baboon (\ref{fig:baboon:original}) & Peppers (\ref{fig:peppers:original}) & Monalisa (\ref{fig:monalisa256x256:original}) & Normal (\ref{fig:photo500x500:original}) & Angry (\ref{fig:rage_me500x500:original}) \\ \hline
+		\ref{fig:baboon:original} & 0.0 & 0.0887 & 0. 07956 & 0.13097 & 0.08883 \\
+		\ref{fig:peppers:original} & 0.0887 & 0.0 & 0.10079 & 0.13128 & 0.10134 \\
+		\ref{fig:monalisa256x256:original} & 0.07956 & 0.10079 & 0.0 & 0.16883 & 0.07410 \\
+		\ref{fig:photo500x500:original} & 0.13097 & 0.13128 & 0.16883 & 0.0 & 0.16478 \\
+		\ref{fig:rage_me500x500:original} & 0.08883 & 0.10134 & 0.07410 & 0.16478 & 0.0 \\
+		\hline
+	\end{tabular}
+	\caption{Distance matrix using 128 bins}
+	\label{tab:conf_matrix:128bins}
+\end{table}
+
+\begin{table}[t]
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		& Baboon (\ref{fig:baboon:original}) & Peppers (\ref{fig:peppers:original}) & Monalisa (\ref{fig:monalisa256x256:original}) & Normal (\ref{fig:photo500x500:original}) & Angry (\ref{fig:rage_me500x500:original}) \\ \hline
+		\ref{fig:baboon:original} & 0.0 & 0.06993 & 0.05670 & 0.09309 & 0.062937 \\
+		\ref{fig:peppers:original} & 0.06993 & 0.0 & 0.07819 & 0.09786 & 0.07866 \\
+		\ref{fig:monalisa256x256:original} & 0.05670 & 0.07819 & 0.0 & 0.11770 & 0.05266 \\
+		\ref{fig:photo500x500:original} & 0.09309 & 0.09786 & 0.11770 & 0.0 & 0.11687 \\
+		\ref{fig:rage_me500x500:original} & 0.062937 & 0.07866 & 0.05266 & 0.11687 & 0.0 \\
+		\hline
+	\end{tabular}
+	\caption{Distance matrix using 256 bins}
+	\label{tab:conf_matrix:256bins}
+\end{table}
+
+
+
+To prove efficiency of method, we performed different experiments, using all images shown in Fig~\ref{fig:originals}, we calculated distance between all images, for this calculation we used three numbers of bins (32, 128 and 256). The result of these experiments can be seen in distances matrices shown in Tables~\ref{tab:conf_matrix:32bins},~\ref{tab:conf_matrix:128bins}~and~\ref{tab:conf_matrix:256bins}. Looking at these distance tables we can conclude:
+\begin{enumerate*}
+	\item While greater is number of bins smaller is distance between the images, because a large number of bins indicates that probabilistic distribution of these will be smaller, so the distance calculated by applying eq~\ref{eq:euclidiana} will be much smaller because each of the bins will have smaller values.
+	\item Looking the results are shown in distance matrices (Table~\ref{tab:conf_matrix:32bins},~\ref{tab:conf_matrix:128bins}~and~~\ref{tab:conf_matrix:256bins}), 
+	we can deduce that the closer to zero the value of calculated distance, more closer are images, so images like ~\ref{fig:photo500x500:original}~and~\ref{fig:rage_me500x500:original}, should give similar values, but seeing the results, are the ones that have greatest distantes between them, this can also be observed by seeing respective histograms in Figs.~\ref{fig:photo500x500:hist}~and~\ref{fig:rage_me500x500:hist}, which are very different.
+	\item Concluding from the experiments, measure euclidean distance between histograms of different images to compare, only allows to know how similar are their gray distribution, so it only serves to know how similar is an image to another through its tones,  does not help to know if geometric shapes or appearance within the image are similar.
+\end{enumerate*}
+ 
+After performing the experiments, we have managed to conclude to know how similar are two image, we must use more robust descriptors than the histogram. Depending on the problem we want to solve is the shape of the descriptor.
+
+\subsection{Solution problem 2}
+
+
+\begin{figure}[b]
+	\centering
+	\begin{subfigure}{0.18\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/watch} 
+		\caption{Watch}
+		\label{fig:2:watch:original}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}{0.18\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/photo500x500}
+		\caption{My normal photo}
+		\label{fig:2:photo500x500:original}
+	\end{subfigure}
+	
+	\caption{Original images used in bit spliting}
+	\label{fig:2:originals}
+\end{figure}
+
+This section is separated into two tasks:
+\begin{enumerate*}
+	\item Split an image in its eight binary layers.
+	\item Calculate entropy of each layer using eq~\ref{eq:entropy} and conclude.
+\end{enumerate*}
+
+To perform the separation of image in its eight binary layers, it's necessary to undestand that a grayscale image can be represented as the mixture of eight image or binary layers, where each image fulfills a special role with respect to the information what he brings. each layer is associated with a special bit of the grayscale value of the image, the most significant image (8th) is an image where the pixel that are lit are those where the value in the grayscale has the 8th bit in one, the 7th image has pixels turned on where those pixels have in one the 7th bit of the chain, so on until 1st image, in which pixles on are those that have the 1st bit in one.
+
+Each of these layers represents different levels of information of image, it is said that most significant information is in images where the bit that represent it is bigger (7th and 8th).
+
+To perform the separation of images we use a function called $bit\_spliting$ shown in Listing~\ref{list:bit_spliting}, which return a list with the binary layers. To obtain these images we use the $bitwise\_and$ operator, and the powers of two from one to eight, with this it's possible to obtain each layer of the image $I$. The images used in the experiments are shown in Fig.~\ref{fig:2:originals}.
+
+
+\begin{lstlisting}[language=Python, caption=Bit spliting, label=list:bit_spliting]
+def bit_spliting(image):
+	images = []
+	
+	for i in range(8):
+		n = 2**i
+		new_image = np.bitwise_and(image,n)
+		new_image[new_image == n] = 255
+		images.append(new_image)
+	
+	return images
+\end{lstlisting}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/watch_bit_split} 
+		\caption{Result of bit spliting Fig.~\ref{fig:2:watch:original}.}
+		\label{fig:watch:bit_split}
+	\end{subfigure}
+
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/photo500x500_bit_split} 
+		
+		\caption{Result of bit spliting Fig.~\ref{fig:2:photo500x500:original}.}
+		\label{fig:photo500x500:bit_split}
+	\end{subfigure}
+	
+	\caption{Result of split images}
+	\label{fig:bit_split}
+	
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/watch_bit_split_reconstruction_decrement} 
+		\caption{Image reconstruction of Fig.~\ref{fig:2:watch:original} from least significant to most.}
+		\label{fig:watch:bit_split:reconstruction:dec}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/watch_bit_split_reconstruction_increment} 
+		
+		\caption{Image reconstruction of Fig.~\ref{fig:2:watch:original} from most significant to least.}
+		\label{fig:watch:bit_split:reconstruction:inc}
+	\end{subfigure}
+	
+	\caption{Fig~\ref{fig:2:watch:original} reconstruction.}
+	\label{fig:watch:bit_split:reconstruction}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/photo500x500_bit_split_reconstruction_increment} 
+		\caption{Image reconstruction of Fig.~\ref{fig:2:photo500x500:original} from least significant to most.}
+		\label{fig:photo500x500:bit_split:reconstruction:dec}
+	\end{subfigure}
+	
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{images/photo500x500_bit_split_reconstruction_decrement} 
+		
+		\caption{Image reconstruction of Fig.~\ref{fig:2:photo500x500:original} from most significant to least.}
+		\label{fig:photo500x500:bit_split:reconstruction:inc}
+	\end{subfigure}
+	
+	\caption{Fig~\ref{fig:2:photo500x500:original} reconstruction.}
+	\label{fig:photo500x500:bit_split:reconstruction}
+\end{figure}
+
+
+The image resulting from applying the Listing~\ref{list:bit_spliting} in Figs.~\ref{fig:2:originals} can be seen in Fig.~\ref{fig:bit_split}, which are sorted from the least significant bit to the most significant one. In these images, different patterns can be seen. The most significant layers are those that contain more information about the visual structure of the image, as in the case of the 7th and 8th layer. In the case of less significant layers, it can be seen that there is little or no visual information, which is still valuable information for the image.
+
+In order to see how much information was provided by each of the layers we decided to perform two experiments in parallel, the stems comprised the reconstruction of the image starting from different paths.
+
+The first one consisted in reconstructing image from the least significant bit to the mos significant bit, as shown in  Figs~\ref{fig:watch:bit_split:reconstruction:inc}~and~\ref{fig:photo500x500:bit_split:reconstruction:inc}. Here we can see that until 4th or 5th layer added, the relevant information of the image can't be seen or can't be understood for human eyes, instead after adding the most significant layers, the image makes sense and is easier undestand the exposed geometry.
+
+In the second experiment, we reconstructed the image from the most significant bit at least significant, as shown in Fig.~\ref{fig:watch:bit_split:reconstruction:dec}~and~\ref{fig:photo500x500:bit_split:reconstruction:dec}. In this experiment we can see that adding the first two layers can obtain a very accurate image of the real image, in which only details of colors are missing, but the form and the most relevant visual information is already beign deployed. While adding more layers to the sum, the missing details are appearing in the image. Example, in case of Fig.~\ref{fig:watch:bit_split:reconstruction:dec}, we can seen that by adding first layers, the missing information represents shadows and image details, this can also be seen by looking Fig.~\ref{fig:photo500x500:bit_split:reconstruction:dec}.
+
+Reviewing the results obtained, we can conclude: 
+\begin{enumerate*}
+	\item The most significant layers of an image have the most relevant information for taking decisions, so this images could be of great help when using then to build more robust and smaller descriptors..
+	\item The least significant layers of an image are those that contain the details of the small variations in gray levels, they contain information relevant to shadows or color variations that are not very noticeable to the human eye.
+	\item This technique could be implemented in the compression of images, because it is possible to reconstruct an image from the sum of all the layers, and also a binary image has a much smaller weight than a grayscale image.
+\end{enumerate*}
+
+After performing the separation of the binary layers of image we proceed to calculate the entropy of each of these layers, to make this calculation, we made use of the eq~\ref{eq:entropy}, which was implemented In the Listing~\ref{list:entropy}. The calculation of the entropy is done on the histogram of an image, so we had to calculate the histogram for each layer, in this calculation we use the function implemented in the Listing~\ref{list:histogram_normlized_function}.
+
+\begin{lstlisting}[language=Python, caption=Bit spliting, label=list:entropy]
+def entropy(hist):
+	entropy = 0
+	width = hist.shape
+	for x in range(0, width[0]):
+		entropy = entropy + hist[x] * np.log2(hist[x])
+	
+	return -1 * entropy
+\end{lstlisting}
+
+The results of the entropy calculation for each layer can be seen in Fig.~\ref{fig:bit_split}, which are on each of the layers. Looking at each of the calculated entropies you can see that almost all entropies have values ​​very close to 1. Considering that maximum entropy of a binary image is 1 and that the entropy of a system is maximal when all all events that can happen have the same probability, this implies that the distribution of zeros and ones is almost uniform in the binary  layers. Therefore, according to the definition of entropy~\cite{Pedrini2008}, while greater value of entropy more uncertainty one has,so more information is associated with the channel. In other words, if all possible values have the same probability, it means that it has a distribution close to uniformity, so each layer ontribute a significant amount of information. This informations does not have to be visual information or understandable to the human eyes.
+
+With these results we can conclude: 
+\begin{enumerate*}
+	\item The entropy measures the amount of information that passes through a channel, when the entropy is maximum, it means that much different information is being transported by that channel.
+	\item The entropy is maximum or minimum has no relation with the visual ability to understand the image.
+	\item The binary layers of an image contain vital information for the image, the most significant layers contain the information of the structure and the visual content, but the less significant layers contain the details with the colors and the small variations that exist between them.
+\end{enumerate*}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/photo}}]{Miguel~Rodriguez}
+	IEEE Member: 93224316, RA: 192744. MSc Student from UNICAMP, Brazil. Computers and Telecommunications Engineer from Diego Portales University, Chile. A charismatic young boy, empathic, a history and culture lover, motivated to travel around the world and learn about different cultures we can find in our planet. 
+	
+	The most noticed abilities are: the capacity to work as a team with people from different areas, the power to surpass problems without losing the desire and motivation to solve them, the great capacity and encouragement to learn new and interesting staffs, being this one, the best ability I earned during my college period. 
+	
+	Very interested in keep improving the skills in labor and the academic field; always searching new technologies and new techniques and moral challenges, especially in areas like artificial intelligence. A bike lover and technologies which use renewable energy, this due to the big motivation to build a future where technology and science can pacifically coexist with nature and that way contribute to improve the life quality in society.
+\end{IEEEbiography}
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+
